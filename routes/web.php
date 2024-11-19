@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\Accounts\CreateAccountController;
+use App\Http\Controllers\Accounts\LoginAccountController;
+
+
+Route::get('/', [LoginAccountController::class, 'loginAccountView'])->name('loginAccountView');
+Route::post('/', [LoginAccountController::class, 'loginAccount'])->name('loginAccount');
+Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->name('createAccountView');
+Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->name('createAccountView');
+Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
+Route::get('/login', [LoginAccountController::class, 'loginAccountView'])->name('loginAccountView');
+

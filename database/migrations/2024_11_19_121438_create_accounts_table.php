@@ -4,18 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+        Schema::create('user_accounts', function (Blueprint $table) {
+            $table->id()->unique();
+            $table->string('firstName');
+            $table->string('lastName')->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -35,14 +34,26 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        DB::table('user_accounts')->insert(
+            array(
+                'firstName' => 'Admin',
+                'lastName' => 'GrandMaster',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('Admin123!')
+
+            )
+        );
+
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_accounts');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
