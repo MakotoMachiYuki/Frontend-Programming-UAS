@@ -1,10 +1,10 @@
 @extends('layout')
 @section('title', 'Log In')
 
-
 @section('header')
 @include('partials.header')
 @endsection
+
 @section('content')
 <main class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4" style="width: 30rem;">

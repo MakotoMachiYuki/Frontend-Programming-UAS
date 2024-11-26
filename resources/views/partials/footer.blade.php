@@ -133,7 +133,7 @@
         <div class="footerSection about">
             <h3>GatGate</h3>
             <div class="logos">
-                <img src="../../images/homepage/gg.png" />
+                <img src="images/gg.png" />
             </div>
             <p>Discover, Gear Up, Thrive – Your Tech and EDC Solution</p>
         </div>
