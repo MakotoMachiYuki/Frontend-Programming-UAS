@@ -1,4 +1,3 @@
-// Configure interpolation symbols
 app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol("[[").endSymbol("]]");
 });
@@ -7,11 +6,9 @@ app.controller("HeaderController", [
     "$scope",
     "ProductLists",
     function ($scope, ProductLists) {
-        // Sidebar visibility toggle
         $scope.sidebarVisible = false;
         $scope.searchVisible = false;
 
-        // Search-related variables
         $scope.searchInput = "";
         $scope.foundProducts = [];
         $scope.productsSearch = ProductLists.getProducts();
@@ -58,10 +55,8 @@ app.controller("HeaderController", [
             const dropdown = angular.element(event.currentTarget).next();
             const isVisible = dropdown.hasClass("open");
 
-            // Hide all dropdowns first
             angular.element(".dropDownContent").removeClass("open").slideUp();
 
-            // Toggle the clicked dropdown
             if (!isVisible) {
                 dropdown.addClass("open").slideDown();
             }
@@ -83,23 +78,19 @@ app.controller("SlideshowController", [
 
         let slideTimeout;
 
-        // Show the selected slide
         const showSlides = () => {
             $scope.slideIndex = ($scope.slideIndex + 1) % $scope.slides.length;
             slideTimeout = $timeout(showSlides, 10000);
         };
 
-        // Initialize the first slide
         $scope.currentSlide = (index) => {
             $timeout.cancel(slideTimeout);
             $scope.slideIndex = index;
             slideTimeout = $timeout(showSlides, 10000);
         };
 
-        // Start the slideshow
         slideTimeout = $timeout(showSlides, 10000);
 
-        // Clean up on controller destroy
         $scope.$on("$destroy", () => {
             $timeout.cancel(slideTimeout);
         });
@@ -108,8 +99,15 @@ app.controller("SlideshowController", [
 
 app.controller("ProductController", [
     "$scope",
-    "ProductLists",
-    function ($scope, ProductLists) {
-        $scope.products = ProductLists.getProducts();
+    "$http",
+    function ($scope, $http) {
+        $http
+            .get("/api/products")
+            .then(function (response) {
+                $scope.products = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error fetching products:", error);
+            });
     },
 ]);

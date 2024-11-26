@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Accounts\CreateAccountController;
 use App\Http\Controllers\Accounts\LoginAccountController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\ProductsController;
 
 
 
@@ -16,3 +17,5 @@ Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->na
 Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
 Route::get('/login', [LoginAccountController::class, 'loginAccountView'])->name('loginAccountView');
 
+
+Route::get('/api/products', [ProductsController::class, 'showAllProducts'])->name('homePageView');
