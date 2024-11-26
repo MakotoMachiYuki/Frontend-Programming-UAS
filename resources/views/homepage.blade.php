@@ -20,9 +20,13 @@
         <div id="productsContainer" class="products">
             <a ng-repeat="product in products" ng-href="[[product.url]]">
                 <div class="product">
-                    <img ng-src="[[product.image]]" alt="[[product.name]]">
-                    <h3>[[product.name]]</h3>
-                    <p>[[product.price]]</p>
+                    <img ng-src="images/produk/[[product.image]]" alt="[[product.productName]]">
+                    <h3>[[product.productName]]</h3>
+                    <p>
+                        [['IDR ' + product.lowestPrice.toLocaleString()
+                        + ' - IDR ' +
+                        product.highestPrice.toLocaleString()]]
+                    </p>
                 </div>
             </a>
         </div>
