@@ -18,17 +18,17 @@
     <div id="productTab"><span class="tab active"> Best Products</span></div>
     <div id="productsContainerDiv" ng-controller="ProductController">
         <div id="productsContainer" class="products">
-            <a ng-repeat="product in products" ng-href="[{product.url}]">
+            <a ng-repeat="product in products" ng-href="product/[{product.productName}]">
                 <div class="product">
-                    <img ng-src="images/produk/[{product.images.colors.default[0]}]" alt="[{product.productName}]">
-                    <h3>[{product.productName}]</h3>
+                    <img ng-src="images/produk/[{product.images.colors.default[0] }]" alt="[{product.productName }]">
+                    <h3>[{product.productName }]</h3>
                     <p>
-                        [{'IDR ' + product.lowestPrice.toLocaleString() + ' - IDR ' +
-                        product.highestPrice.toLocaleString()}]
+                        [{'IDR ' + product.lowestPrice.toLocaleString() + ' - IDR ' + product.highestPrice.toLocaleString() }]
                     </p>
-                </div>
-            </a>
         </div>
+    </a>
+</div>
+
     </div>
 
     @section('footer')
