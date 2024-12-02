@@ -27,7 +27,7 @@ class LoginAccountController extends Controller
         ];
         if (Auth::attempt($data)) {
             Session::put('login', True);
-            return redirect('/');
+            return redirect('/profile');
             ;
         } else {
             Session::put('login', False);

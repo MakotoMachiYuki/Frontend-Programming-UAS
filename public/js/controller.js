@@ -111,3 +111,18 @@ app.controller("ProductController", [
             });
     },
 ]);
+
+app.controller("ProfileController", function ($scope, $http) {
+    // Initialize user object
+    $scope.user = {};
+
+    // Fetch user profile from API
+    $http
+        .get("/api/profile")
+        .then(function (response) {
+            $scope.user = response.data; // Assign API data to scope
+        })
+        .catch(function (error) {
+            console.error("Error fetching profile:", error);
+        });
+});
