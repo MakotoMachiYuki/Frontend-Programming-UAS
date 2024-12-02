@@ -41,4 +41,13 @@ class ProfileController extends Controller
         // Redirect back with a success message
         return redirect()->route('profile.view')->with('success', 'Profile updated successfully!');
     }
+
+    public function deleteAccount(Request $request)
+{
+    $user = Auth::user();
+    Auth::logout();
+    $user->delete();
+    return redirect('/')->with('success', 'Your account has been deleted successfully.');
+}
+
 }

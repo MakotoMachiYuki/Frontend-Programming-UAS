@@ -46,9 +46,6 @@
                         </select>
                     </div>
 
-                    <!-- Registered At -->
-
-
                     <div class="d-flex justify-content-between mt-3">
                         <!-- Edit Button -->
                         <button type="button" id="editButton" class="btn btn-primary" 
@@ -61,13 +58,21 @@
             </div>
         </div>
 
-        <!-- Logout Button -->
-        <div class="mt-4">
-            <form  method="POST" action="{{ route('logout') }}">
+                <div class="d-flex justify-content-between mt-4">
+            <!-- Delete Account Button -->
+            <form action="{{ route('profile.delete') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete Account</button>
+            </form>
+
+            <!-- Logout Button -->
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="btn btn-danger">Logout</button>
             </form>
         </div>
+
     </div>
 </main>
 
