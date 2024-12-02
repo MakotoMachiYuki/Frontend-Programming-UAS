@@ -19,8 +19,16 @@ Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->na
 Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->name('createAccountView');
 Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
 Route::get('/login', [LoginAccountController::class, 'loginAccountView'])->name('loginAccountView');
-Route::get('/profile', [ProfileController::class, 'profileView'])->name('profileView');
-Route::post('/profile', [LoginAccountController::class, 'logout'])->name('logout');
+
+
+Route::group(['middleware' => 'auth'], function()
+{   
+    Route::get('/profile', [ProfileController::class, 'profileView'])->name('profile.view');
+    Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
+    Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logout');
+});
+
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products', [ProductsController::class, 'productsView'])->name('productsView');
 
