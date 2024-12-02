@@ -56,7 +56,7 @@ return new class extends Migration {
                         'default' => ['sonyblack1.png', 'sonyblack2.png', 'sonyblack3.png', 'sonyblack4.png', 'sonyblack5.png'],
                         'silver' => ['sonysilver1.png', 'sonysilver2.png', 'sonysilver3.png', 'sonysilver4.png', 'sonysilver5.png']
                     ],
-                    'banners' => ['sonybanner1.png', 'sonybanner3.png', 'sonybanner4.png', 'sonybanner5.png', 'sonybanner6.png']
+                    'banners' => ['sonybanner1.png', 'sonybanner2.png','sonybanner3.png', 'sonybanner4.png', 'sonybanner5.png']
                 ],
             ],
             [
@@ -98,7 +98,7 @@ return new class extends Migration {
                         'default' => ['galaxywatch1.png', 'galaxywatch2.png', 'galaxywatch3.png', 'galaxywatch4.png', 'galaxywatch5.png'],
                         'silver' => ['galaxywatchsilver1.png', 'galaxywatchsilver2.png', 'galaxywatchsilver3.png', 'galaxywatchsilver4.png', 'galaxywatchsilver5.png']
                     ],
-                    'banners' => ['galaxywatchdet1.png', 'galaxywatchdet2.png', 'galaxywatchdet3.png', 'galaxywatchdet4.png', 'galaxywatchdet5.png', 'galaxywatchdet6.png', 'galaxywatchdet7.png']
+                    'banners' => ['galaxywatchbanner1.png', 'galaxywatchbanner2.png', 'galaxywatchbanner3.png', 'galaxywatchbanner4.png', 'galaxywatchbanner5.png', 'galaxywatchbanner6.png', 'galaxywatchbanner7.png']
                 ],
             ],
 
@@ -115,7 +115,7 @@ return new class extends Migration {
                         'silver' => ['applewatchsilver1.png', 'applewatchsilver2.png', 'applewatchsilver3.png', 'applewatchsilver4.png', 'applewatchsilver5.png', 'applewatchsilver6.png'],
                         'starlight' => ['applewatchstarlight1.png', 'applewatchstarlight2.png', 'applewatchstarlight3.png', 'applewatchstarlight4.png', 'applewatchstarlight5.png', 'applewatchstarlight6.png']
                     ],
-                    'banners' => ['applewatchdet1.png', 'applewatchdet2.png', 'applewatchdet3.png', 'applewatchdet4.png', 'applewatchdet5.png']
+                    'banners' => ['applewatchbanner1.png', 'applewatchbanner2.png', 'applewatchbanner3.png', 'applewatchbanner4.png', 'applewatchbanner5.png']
                 ],
             ],
             [
@@ -128,7 +128,7 @@ return new class extends Migration {
                         'default' => ['huaweiwatchblue1.png', 'huaweiwatchblue2.png', 'huaweiwatchblue3.png'],
                         'green' => ['huaweiwatchgreen1.png', 'huaweiwatchgreen2.png', 'huaweiwatchgreen3.png']
                     ],
-                    'banners' => ['huaweiwatchdet1.png', 'huaweiwatchdet2.png', 'huaweiwatchdet3.png', 'huaweiwatchdet4.png', 'huaweiwatchdet5.png']
+                    'banners' => ['huaweiwatchbanner1.png', 'huaweiwatchbanner2.png', 'huaweiwatchbanner3.png', 'huaweiwatchbanner4.png', 'huaweiwatchbanner5.png']
                 ],
             ],
             [
@@ -142,7 +142,7 @@ return new class extends Migration {
                         'black' => ['alpakablack1.png', 'alpakablack2.png', 'alpakablack3.png', 'alpakablack4.png', 'alpakablack5.png', 'alpakablack6.png', 'alpakablack7.png', 'alpakablack8.png'],
                         'green' => ['alpakagreen1.png', 'alpakagreen2.png', 'alpakagreen3.png', 'alpakagreen4.png', 'alpakagreen5.png', 'alpakagreen6.png', 'alpakagreen7.png', 'alpakagreen8.png']
                     ],
-                    'banners' => ['alpakabagdet1.png', 'alpakabagdet2.png', 'alpakabagdet3.png', 'alpakabagdet4.png', 'alpakabagdet5.png', 'alpakabagdet6.png']
+                    'banners' => ['alpakabagbanner1.png', 'alpakabagbanner2.png', 'alpakabagbanner3.png', 'alpakabagbanner4.png', 'alpakabagbanner5.png', 'alpakabagbanner6.png']
                 ],
             ],
             [
@@ -157,7 +157,7 @@ return new class extends Migration {
                         'brown' => ['ablebagbrown1.png', 'ablebagbrown2.png', 'ablebagbrown3.png', 'ablebagbrown4.png', 'ablebagbrown5.png', 'ablebagbrown6.png'],
                         'green' => ['ablebaggreen1.png', 'ablebaggreen2.png', 'ablebaggreen3.png', 'ablebaggreen4.png', 'ablebaggreen5.png', 'ablebaggreen6.png']
                     ],
-                    'banners' => ['ablebagdet1.png', 'ablebagdet2.png', 'ablebagdet3.png', 'ablebagdet4.png', 'ablebagdet5.png']
+                    'banners' => ['ablebagbanner1.png', 'ablebagbanner12.png', 'ablebagbanner13.png', 'ablebagbanner14.png', 'ablebagbanner15.png']
                 ],
             ],
             [
@@ -171,7 +171,7 @@ return new class extends Migration {
                         'gray' => ['aerbaggray1.png', 'aerbaggray2.png', 'aerbaggray3.png', 'aerbaggray4.png', 'aerbaggray5.png', 'aerbaggray6.png'],
                         'olive' => ['aerbagolive1.png', 'aerbagolive2.png', 'aerbagolive3.png', 'aerbagolive4.png', 'aerbagolive5.png', 'aerbagolive6.png']
                     ],
-                    'banners' => ['aerbagdet1.png', 'aerbagdet2.png', 'aerbagdet3.png', 'aerbagdet4.png', 'aerbagdet5.png']
+                    'banners' => ['aerbagbanner1.png', 'aerbagbanner2.png', 'aerbagbanner3.png', 'aerbagbanner4.png', 'aerbagbanner5.png']
                 ],
             ],
             [
@@ -184,7 +184,7 @@ return new class extends Migration {
                         'default' => ['orbitkeybag1.png', 'orbitkeybag2.png', 'orbitkeybag3.png', 'orbitkeybag4.png', 'orbitkeybag5.png', 'orbitkeybag6.png', 'orbitkeybag7.png'],
                         'ash' => ['orbitkeybagash1.png', 'orbitkeybagash2.png', 'orbitkeybagash3.png', 'orbitkeybagash4.png', 'orbitkeybagash5.png', 'orbitkeybagash6.png', 'orbitkeybagash7.png']
                     ],
-                    'banners' => ['orbitkeydet1.png', 'orbitkeydet2.png', 'orbitkeydet3.png', 'orbitkeydet4.png', 'orbitkeydet5.png']
+                    'banners' => ['orbitkeybanner1.png', 'orbitkeybanner2.png', 'orbitkeybanner3.png', 'orbitkeybanner4.png', 'orbitkeybanner5.png']
                 ],
             ],
         ];
