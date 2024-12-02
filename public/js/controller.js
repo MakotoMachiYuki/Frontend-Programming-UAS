@@ -113,16 +113,43 @@ app.controller("ProductController", [
 ]);
 
 app.controller("ProfileController", function ($scope, $http) {
-    // Initialize user object
     $scope.user = {};
 
-    // Fetch user profile from API
     $http
         .get("/api/profile")
         .then(function (response) {
-            $scope.user = response.data; // Assign API data to scope
+            $scope.user = response.data;
         })
         .catch(function (error) {
             console.error("Error fetching profile:", error);
         });
 });
+
+app.filter("encodeURIComponent", function() {
+    return function(input) {
+        return encodeURIComponent(input);
+    };
+});
+
+
+app.controller("ProductDetailController", [
+    "$scope",
+    "$http",
+    "$location",
+    function ($scope, $http, $location) {
+        const productName = $location.absUrl().split("/").pop(); // Mengambil segmen terakhir URL
+
+        $http
+            .get(`/api/product/${productName}`)
+            .then(function (response) {
+                $scope.product = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error fetching product details:", error);
+                $scope.error = "Unable to fetch product details.";
+            });
+    },
+]);
+
+
+
