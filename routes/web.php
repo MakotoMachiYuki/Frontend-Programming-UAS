@@ -16,8 +16,13 @@ Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->na
 Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->name('createAccountView');
 Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
 Route::get('/login', [LoginAccountController::class, 'loginAccountView'])->name('loginAccountView');
-Route::get('/profile', [ProfileController::class, 'profileView'])->name('profileView');
-Route::post('/profile', [LoginAccountController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => 'auth'], function()
+{   
+    Route::get('/profile', [ProfileController::class, 'profileView'])->name('profile.view');
+    Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logout');
+});
 
 Route::get('/api/products', [ProductsController::class, 'showAllProducts'])->name('homePageView');
 Route::get('/api/profile', [ProfileController::class, 'getUser'])->name('getUser');
