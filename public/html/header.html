@@ -1,12 +1,15 @@
-<link rel="stylesheet" href="css/header.css" />
 <header>
     <div id="menuToggleDiv">
-        <i class="fa-solid fa-bars" id="menuToggle" ng-click="toggleSidebar()"></i>
+        <i
+            class="fa-solid fa-bars"
+            id="menuToggle"
+            ng-click="toggleSidebar()"
+        ></i>
     </div>
     <div id="rightHeader">
         <div id="iconHeader">
             <a href="/">
-                <img id="chaldeaLogo" src="images/gg.png" alt="Logo">
+                <img id="chaldeaLogo" src="images/gg.png" alt="Logo" />
                 <h2>GatGate</h2>
             </a>
         </div>
@@ -28,17 +31,22 @@
                 </ul>
             </div>
         </li>
-        <i class="fa-solid fa-magnifying-glass" id="mainSearchGlassLogo" ng-click="toggleSearch()"></i>
+        <i
+            class="fa-solid fa-magnifying-glass"
+            id="mainSearchGlassLogo"
+            ng-click="toggleSearch()"
+        ></i>
         <a href="login"><i class="fa-solid fa-user"></i></a>
     </ul>
-    <!-- Sidebar Menu -->
-    <div id="sidebarMenu" ng-show="sidebarVisible">>
+
+    <div id="sidebarMenu" ng-show="sidebarVisible">
         <div id="closeSidebar" ng-click="closeSidebar()">&times;</div>
         <ul>
             <li class="menuItem" ng-click="toggleDropdown($event)">
                 <div class="caretText">
                     Collections
-                    <i class="fa-solid fa-caret-down caretIcon"></i><i class="fa-solid fa-caret-up caretIcon"></i>
+                    <i class="fa-solid fa-caret-down caretIcon"></i>
+                    <i class="fa-solid fa-caret-up caretIcon"></i>
                 </div>
                 <div class="dropDownContent">
                     <ul>
@@ -56,12 +64,17 @@
             </li>
         </ul>
     </div>
-    <!-- Search Header -->
-    <header id="searchHeader" ng-show="searchVisible">
+    <div id="searchHeader" ng-show="searchVisible">
         <div id="searchDiv">
             <i class="fa-solid fa-magnifying-glass" id="searchGlassLogo"></i>
-            <input id="searchInput" type="search" ng-model="searchInput" ng-change="search()" spellcheck="false"
-                placeholder="SEARCH FOR ..." />
+            <input
+                id="searchInput"
+                type="search"
+                ng-model="searchInput"
+                ng-change="search()"
+                spellcheck="false"
+                placeholder="SEARCH FOR ..."
+            />
         </div>
         <div id="productContainerSearch" ng-show="foundProducts.length > 0">
             <div class="productSearch" ng-repeat="product in foundProducts">
@@ -74,5 +87,5 @@
             </div>
         </div>
         <div id="noResult" ng-show="noResults()">No Result</div>
-    </header>
+    </div>
 </header>
