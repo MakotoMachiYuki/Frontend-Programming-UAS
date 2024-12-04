@@ -1,12 +1,103 @@
-app.controller("ProfileController", function ($scope, $http) {
-    $scope.user = {};
+app.controller(
+    "ProfileController",
+    function ($scope, $http, $httpParamSerializer, $location) {
+        $scope.user = {};
+        $scope.isEditing = false;
 
-    $http
-        .get("/api/profile")
-        .then(function (response) {
-            $scope.user = response.data;
+        $http({
+            method: "GET",
+            url: "/api/profile",
+            headers: {
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
+            },
         })
-        .catch(function (error) {
-            console.error("Error fetching profile:", error);
-        });
-});
+            .then(function (response) {
+                console.log(response.data);
+                if (response.data && typeof response.data.user === "object") {
+                    $scope.user = response.data.user;
+                } else {
+                    console.error(
+                        "Invalid profile data structure:",
+                        response.data
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.error("Error fetching profile:", error);
+            });
+
+        $scope.enableEditing = function () {
+            $scope.isEditing = true;
+        };
+
+        $scope.updateProfile = function () {
+            $http({
+                method: "PUT",
+                url: "/api/profile/update",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+                data: $httpParamSerializer($scope.user),
+            })
+                .then(function (response) {
+                    alert("Profile updated successfully!");
+                    $scope.isEditing = false;
+                })
+                .catch(function (error) {
+                    console.error("Error updating profile:", error);
+                    alert("Failed to update profile. Please try again.");
+                });
+        };
+
+        $scope.logout = function () {
+            $http({
+                method: "POST",
+                url: "/logout",
+                headers: {
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+            })
+                .then(function (response) {
+                    window.location.href = "/";
+                })
+                .catch(function (error) {
+                    console.error("Error during logout:", error);
+                });
+        };
+
+        $scope.deleteAccount = function () {
+            if (
+                confirm(
+                    "Are you sure you want to delete your account? This action cannot be undone."
+                )
+            ) {
+                $http({
+                    method: "DELETE",
+                    url: "/api/profile/delete",
+                    headers: {
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
+                    },
+                })
+                    .then(function (response) {
+                        alert("Your account has been deleted successfully.");
+                        $location.path("/");
+                    })
+                    .catch(function (error) {
+                        console.error("Error deleting account:", error);
+                        alert(
+                            "Failed to delete the account. Please try again."
+                        );
+                    });
+            }
+        };
+    }
+);

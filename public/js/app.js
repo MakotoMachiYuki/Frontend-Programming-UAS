@@ -63,6 +63,28 @@ app.config(function ($routeProvider) {
             controller: "ProductDetailsController",
         })
 
+        .when("/profile", {
+            templateUrl: "/html/profile.html",
+            controller: "ProfileController",
+            resolve: {
+                auth: function ($q, AuthService, $location) {
+                    return AuthService.isAuthenticated().then(function (
+                        isAuthenticated
+                    ) {
+                        if (isAuthenticated) {
+                            return true;
+                        } else {
+                            $location.path("/login");
+                            return $q.reject("Not Authenticated");
+                        }
+                    });
+                },
+            },
+        })
+        .otherwise({
+            redirectTo: "/",
+        })
+
         .otherwise({
             redirectTo: "/",
         });

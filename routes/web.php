@@ -32,3 +32,12 @@ Route::get('/', function () {
 Route::get('/api/product/{productName}', [ProductsController::class, 'productDetail'])->name('product.detail');
 Route::get('/api/products', [ProductsController::class, 'showAllProducts'])->name('homePageView');
 Route::get('/api/profile', [ProfileController::class, 'getUser'])->name('getUser');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/api/profile', [ProfileController::class, 'getProfile']);
+    Route::put('/api/profile/update', [ProfileController::class, 'updateProfile']);
+    Route::delete('/api/profile/delete', [ProfileController::class, 'deleteAccount']);
+    Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
+
+});
