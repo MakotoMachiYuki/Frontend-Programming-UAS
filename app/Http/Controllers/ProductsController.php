@@ -31,6 +31,19 @@ class ProductsController extends Controller
 
     }
 
+    public function getComments($productName) {
+        $comments = Comments::where('product_name', $productName)->get();
+        return response()->json($comments);
+    }
 
+    public function addComment(Request $request, $productName) {
+        $comment = new Comments();
+        $comment->product_name = $productName;
+        $comment->user = $request->input('user');
+        $comment->content = $request->input('content');
+        $comment->save();
+
+        return response()->json($comment);
+    }
 
 }
