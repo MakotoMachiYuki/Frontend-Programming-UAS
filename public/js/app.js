@@ -10,6 +10,14 @@ app.filter("encodeURIComponent", function () {
     };
 });
 
+app.service("AuthService", function ($http) {
+    this.isAuthenticated = function () {
+        return $http.get("/api/auth-status").then(function (response) {
+            return response.data.authenticated;
+        });
+    };
+});
+
 app.factory("csrfInterceptor", function ($q) {
     var csrfToken = document
         .querySelector('meta[name="csrf-token"]')
@@ -49,21 +57,4 @@ app.directive("footer", function () {
         replace: true,
         templateUrl: "./html/footer.html",
     };
-});
-
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when("/", {
-            templateUrl: "/html/homepage.html",
-            controller: "HomepageController",
-        })
-
-        .when("/product/:productName", {
-            templateUrl: "/html/product-detail.html",
-            controller: "ProductDetailsController",
-        })
-
-        .otherwise({
-            redirectTo: "/",
-        });
 });
