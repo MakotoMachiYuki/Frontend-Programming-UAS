@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 
 
@@ -36,14 +37,17 @@ class ProductsController extends Controller
         return response()->json($comments);
     }
 
-    public function addComment(Request $request, $productName) {
+    public function addComment(Request $request, $productName)
+    {
         $comment = new Comments();
         $comment->product_name = $productName;
-        $comment->user = $request->input('user');
+        $comment->user_name = $request->input('user_name');
+        $comment->user_email = $request->input('user_email');
         $comment->content = $request->input('content');
         $comment->save();
 
-        return response()->json($comment);
-    }
+        return response()->json($comment);  
+}
+
 
 }

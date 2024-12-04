@@ -3,37 +3,47 @@
         <h1 class="text-center">{{product.productName }}</h1>
         <div class="row">
             <div class="col-md-6">
-                <img
-                    ng-src="images/produk/{{product.images.colors.default[0]}}  "
-                    class="img-fluid"
-                    alt=" {{product.productName }}"
-                />
+                <img ng-src="images/produk/{{product.images.colors.default[0]}}" class="img-fluid"
+                    alt="{{product.productName }}" />
             </div>
             <div class="col-md-6">
                 <p><strong>Category:</strong> {{product.category }}</p>
-                <p>
-                    <strong>Price Range:</strong> IDR {{product.lowestPrice |
-                    number }} - IDR {{product.highestPrice | number }}
-                </p>
+                <p><strong>Price Range:</strong> IDR {{product.lowestPrice | number }} - IDR {{product.highestPrice |
+                    number }}</p>
                 <button class="btn btn-primary">Buy Now</button>
             </div>
         </div>
     </div>
 
-    <div class="comments">
+    <div ng-if="comments.length > 0" class="mt-4">
         <h3>Comments</h3>
-        <div ng-repeat="comment in comments">
-            <p><strong>{{ comment.user }}:</strong> {{ comment.content }}</p>
+        <div class="list-group">
+            <div ng-repeat="comment in comments" class="list-group-item">
+                <p><strong>{{ comment.user_name }}:</strong> {{ comment.content }}</p>
+            </div>
         </div>
     </div>
-    
-    <div class="add-comment">
-        <input type="text" ng-model="newComment.user" placeholder="Your name" />
-        <textarea ng-model="newComment.content" placeholder="Add a comment"></textarea>
-        <button ng-click="addComment()">Submit Comment</button>
+
+    <div ng-if="comments.length === 0" class="mt-4 text-center">
+        <p>No comments yet. Be the first to comment!</p>
     </div>
 
-    <div ng-if="error">
+    <div ng-if="isLoggedIn" class="mt-4">
+        <h4>Add a Comment</h4>
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+            <textarea ng-model="newComment.content" class="form-control" rows="3"
+                placeholder="Add a comment"></textarea>
+        </div>
+        <button ng-click="addComment()" class="btn btn-success">Submit Comment</button>
+    </div>
+
+    <div ng-if="!isLoggedIn" class="mt-4 text-center text-danger">
+        <p>You must be logged in to comment.</p>
+    </div>
+
+    <div ng-if="error" class="mt-4">
         <p class="text-center text-danger">{{error }}</p>
     </div>
 </div>

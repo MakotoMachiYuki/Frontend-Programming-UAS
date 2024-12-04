@@ -20,18 +20,29 @@ Route::post('/login', [LoginAccountController::class, 'loginAccount'])->name('lo
 Route::get('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
 Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->name('createAccountView');
 Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
-
-Route::get('/api/auth-status', function () {
-    return response()->json(['authenticated' => Auth::check()]);
+Route::get('/api/auth/check', function () {
+    if (Auth::check()) {
+        return response()->json([
+            'isAuthenticated' => true,
+            'user' => Auth::user(),
+        ]);
+    } else {
+        return response()->json(['isAuthenticated' => false]);
+    }
 });
+
 
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
 
-Route::get('/api/product/{productName}', [ProductsController::class, 'productDetail'])->name('product.detail');
 Route::get('/api/products', [ProductsController::class, 'showAllProducts'])->name('homePageView');
+Route::get('/api/product/{productName}', [ProductsController::class, 'productDetail'])->name('product.detail');
 Route::get('/api/profile', [ProfileController::class, 'getUser'])->name('getUser');
+
+Route::get('/api/product/{productName}/comments', [ProductsController::class, 'getComments'])->name('getComments');
+Route::post('/api/product/{productName}/comments', [ProductsController::class, 'addComment'])->name('addComment');
+
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -41,3 +52,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
 
 });
+
+
