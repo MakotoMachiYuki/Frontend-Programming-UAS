@@ -12,8 +12,14 @@ class ProfileController extends Controller
      */
     public function profileView()
     {
-        $user = Auth::user(); // Fetch the authenticated user
+        $user = Auth::user();
         return view('profile', ['user' => $user]);
+    }
+
+    public function getProfile()
+    {
+        $user = Auth::user();
+        return response()->json(['user' => $user]);
     }
 
     /**
@@ -21,33 +27,32 @@ class ProfileController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        // Validate the incoming request data
+
         $request->validate([
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
-            'gender' => 'required|in:male,female',
+            'firstName' => 'string|max:255',
+            'lastName' => 'string|max:255',
+            'gender' => 'in:male,female',
         ]);
 
-        // Fetch the authenticated user
         $user = Auth::user();
 
-        // Update the user details
         $user->update([
             'firstName' => $request->input('firstName'),
             'lastName' => $request->input('lastName'),
             'gender' => $request->input('gender'),
         ]);
 
-        // Redirect back with a success message
-        return redirect()->route('profile.view')->with('success', 'Profile updated successfully!');
+        return response()->json(['success' => true, 'message' => 'Profile updated successfully!']);
     }
 
+    /**
+     * Delete the user account.
+     */
     public function deleteAccount(Request $request)
     {
         $user = Auth::user();
         Auth::logout();
         $user->delete();
-        return redirect('/')->with('success', 'Your account has been deleted successfully.');
+        return response()->json(['success' => true, 'message' => 'Your account has been deleted successfully.']);
     }
-
 }

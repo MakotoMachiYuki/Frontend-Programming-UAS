@@ -1,16 +1,11 @@
 app.controller("HeaderController", [
     "$scope",
-    "ProductLists",
-    function ($scope, ProductLists) {
+    function ($scope) {
         $scope.sidebarVisible = false;
         $scope.searchVisible = false;
 
         $scope.searchInput = "";
         $scope.foundProducts = [];
-        $scope.productsSearch = ProductLists.getProducts();
-
-        console.log("HeaderController initialized");
-
         $scope.toggleSidebar = function () {
             $timeout(() => {
                 $scope.sidebarVisible = !$scope.sidebarVisible;

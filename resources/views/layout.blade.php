@@ -13,10 +13,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
     <script src="js/app.js" defer></script>
+    <script src="js/route.js" defer></script>
     <script src="js/controllers/Homepagecontroller.js" defer></script>
     <script src="js/controllers/HeaderController.js" defer></script>
     <script src="js/controllers/ProductDetailsController.js" defer></script>
     <script src="js/controllers/ProfileController.js" defer></script>
+    <script src="js/controllers/LoginController.js" defer></script>
+    <script src="js/controllers/SignupController.js" defer></script>
+
 
 </head>
 

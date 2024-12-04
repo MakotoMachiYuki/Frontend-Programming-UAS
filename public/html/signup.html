@@ -1,9 +1,11 @@
-<main class="d-flex justify-content-center align-items-center vh-100">
+<main
+    class="d-flex justify-content-center align-items-center vh-100"
+    ng-controller="SignupController"
+>
     <div class="card shadow p-4" style="width: 30rem">
         <h1 class="text-center">Sign Up</h1>
         <p class="text-center">Please fill in the information below!</p>
-        <form action="{{ route('createAccount') }}" method="post" class="mt-3">
-            @csrf
+        <form ng-submit="createAccount()" class="mt-3">
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name</label>
                 <input
@@ -12,13 +14,9 @@
                     name="firstName"
                     class="form-control"
                     placeholder="First Name"
+                    ng-model="signupData.firstName"
                     required
-                    value="{{old('firstName')}}"
                 />
-                @if ($errors->any()) @foreach ($errors->get('firstName') as
-                $error)
-                <small class="text-danger">{{ $error }}</small>
-                @endforeach @endif
             </div>
             <div class="mb-3">
                 <label for="lastName" class="form-label">Last Name</label>
@@ -28,7 +26,7 @@
                     name="lastName"
                     class="form-control"
                     placeholder="Last Name"
-                    value="{{old('lastName')}}"
+                    ng-model="signupData.lastName"
                 />
             </div>
             <div class="mb-3">
@@ -39,12 +37,9 @@
                     name="email"
                     class="form-control"
                     placeholder="E-mail"
-                    value="{{old('email')}}"
+                    ng-model="signupData.email"
                     required
                 />
-                @if ($errors->any()) @foreach ($errors->get('email') as $error)
-                <small class="text-danger">{{ $error }}</small>
-                @endforeach @endif
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -54,12 +49,9 @@
                     name="password"
                     class="form-control"
                     placeholder="Password"
+                    ng-model="signupData.password"
                     required
                 />
-                @if ($errors->any()) @foreach ($errors->get('password') as
-                $error)
-                <small class="text-danger">{{ $error }}</small>
-                @endforeach @endif
             </div>
             <div class="mb-3">
                 <label for="password_confirm" class="form-label"
@@ -71,25 +63,24 @@
                     name="password_confirm"
                     class="form-control"
                     placeholder="Confirm Password"
+                    ng-model="signupData.password_confirm"
                     required
                 />
-                @if ($errors->any()) @foreach ($errors->get('password_confirm')
-                as $error)
-                <small class="text-danger">{{ $error }}</small>
-                @endforeach @endif
             </div>
+
+            <small class="text-danger" ng-repeat="error in errorMessages"
+                >{{ error }}</small
+            >
+
             <button type="submit" class="btn btn-dark w-100">Sign Up</button>
         </form>
         <p class="mt-4 text-center">
             Already have an account?
             <a
-                href="{{ route('loginAccountView') }}"
+                href="#!/login"
                 class="text-decoration-underline sign-in-direction"
                 >Login</a
             >
         </p>
     </div>
-
-    @section('footer') @include('partials.footer') @endsection
 </main>
-@endsection
