@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="css/admin.css" />
+<main ng-controller="AdminController" class="bg-dark text-light">
+    <div class="container mt-5">
+        <div class="card bg-dark border-light">
+            <div class="card-header bg-black text-light">
+                <h2 class="text-center">Admin Dashboard - Products List</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-dark table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="product in products">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ product.productName }}</td>
+                                <td>{{ product.lowestPrice}}</td>
+                                <td>{{ product.category }}</td>
+                                <td>
+                                    <button
+                                        class="btn btn-outline-light btn-sm"
+                                        ng-click="editProduct(product.productName)"
+                                    >
+                                        <i class="fa fa-edit"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

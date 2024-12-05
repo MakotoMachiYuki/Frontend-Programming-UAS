@@ -1,0 +1,35 @@
+body {
+    background-color: #121212;
+    color: #ffffff;
+}
+.card-header {
+    background-color: #1c1c1c;
+}
+.form-control {
+    background-color: #1c1c1c;
+    color: #ffffff;
+    border: 1px solid #f0f0f0;
+}
+.form-control::placeholder {
+    color: #aaaaaa;
+}
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}

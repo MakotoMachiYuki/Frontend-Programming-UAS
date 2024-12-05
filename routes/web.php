@@ -22,9 +22,12 @@ Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->na
 Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
 
 Route::get('/api/auth-status', function () {
-    return response()->json(['authenticated' => Auth::check()]);
+    $user = Auth::user();
+    return response()->json([
+        'authenticated' => Auth::check(),
+        'user' => $user ? ['email' => $user->email, 'firstName' => $user->firstName, 'access' => $user->access] : null
+    ]);
 });
-
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
@@ -39,5 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/api/profile/update', [ProfileController::class, 'updateProfile']);
     Route::delete('/api/profile/delete', [ProfileController::class, 'deleteAccount']);
     Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
+
+
+    Route::put('/api/product/update/{productName}', [ProductsController::class, 'updateProduct']);
+    Route::delete('/api/product/delete/{productName}', [ProductsController::class, 'deleteProduct']);
 
 });

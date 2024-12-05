@@ -1,106 +1,124 @@
-<main ng-controller="ProfileController">
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
+<main ng-controller="ProfileController" class="bg-light py-5">
+    <div class="container">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white text-center">
                 <h2>Profile</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body bg-white">
                 <form ng-submit="updateProfile()">
-                    <div class="mb-3">
-                        <label for="email" class="form-label"
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-3 col-form-label"
                             ><strong>Email:</strong></label
                         >
-                        <input
-                            type="email"
-                            class="form-control-plaintext"
-                            id="email"
-                            readonly
-                            placeholder="{{user.email }}"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label"
-                            ><strong>First Name:</strong></label
-                        >
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="firstName"
-                            ng-readonly="!isEditing"
-                            placeholder="{{user.firstName}}"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label"
-                            ><strong>Last Name:</strong></label
-                        >
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="lastName"
-                            ng-readonly="!isEditing"
-                            placeholder="{{user.lastName}}"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label"
-                            ><strong>Gender:</strong></label
-                        >
-                        <select
-                            id="gender"
-                            class="form-control"
-                            ng-model="user.gender"
-                            ng-disabled="!isEditing"
-                        >
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="registeredAt" class="form-label"
-                            ><strong>Registered At:</strong></label
-                        >
-                        <input
-                            type="text"
-                            class="form-control-plaintext"
-                            id="registeredAt"
-                            value="{{ user.created_at | date:'medium' }}"
-                            readonly
-                        />
+                        <div class="col-sm-9">
+                            <input
+                                type="email"
+                                class="form-control-plaintext"
+                                id="email"
+                                ng-model="user.email"
+                                readonly
+                            />
+                        </div>
                     </div>
 
-                    <div class="d-flex justify-content-between mt-3">
+                    <div class="mb-3 row">
+                        <label for="firstName" class="col-sm-3 col-form-label"
+                            ><strong>First Name:</strong></label
+                        >
+                        <div class="col-sm-9">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="firstName"
+                                ng-model="user.firstName"
+                                ng-readonly="!isEditing"
+                                placeholder="Enter First Name"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="lastName" class="col-sm-3 col-form-label"
+                            ><strong>Last Name:</strong></label
+                        >
+                        <div class="col-sm-9">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="lastName"
+                                ng-model="user.lastName"
+                                ng-readonly="!isEditing"
+                                placeholder="Enter Last Name"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="gender" class="col-sm-3 col-form-label"
+                            ><strong>Gender:</strong></label
+                        >
+                        <div class="col-sm-9">
+                            <select
+                                id="gender"
+                                class="form-control"
+                                ng-model="user.gender"
+                                ng-disabled="!isEditing"
+                                required
+                            >
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
                         <button
                             type="button"
-                            class="btn btn-primary"
+                            class="btn btn-primary me-2"
                             ng-click="enableEditing()"
                             ng-show="!isEditing"
                         >
-                            Edit
+                            <i class="fa fa-edit"></i> Edit
                         </button>
                         <button
                             type="submit"
                             class="btn btn-success"
                             ng-show="isEditing"
                         >
-                            Save
+                            <i class="fa fa-save"></i> Save
                         </button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="d-flex justify-content-between mt-4">
-            <button
-                type="button"
-                class="btn btn-danger"
-                ng-click="deleteAccount()"
-            >
-                Delete Account
-            </button>
-            <button type="button" class="btn btn-danger" ng-click="logout()">
-                Logout
-            </button>
+        <div class="row text-center">
+            <div class="col-md-6">
+                <button
+                    type="button"
+                    class="btn btn-outline-danger w-100 mb-3"
+                    ng-click="deleteAccount()"
+                >
+                    <i class="fa fa-trash"></i> Delete Account
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button
+                    type="button"
+                    class="btn btn-outline-danger w-100 mb-3"
+                    ng-click="logout()"
+                >
+                    <i class="fa fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="text-center mt-4" ng-show="user.access === 'admin'">
+            <a href="#!/admin" class="btn btn-secondary btn-lg">
+                <i class="fa fa-cog"></i> Admin Dashboard
+            </a>
         </div>
     </div>
 </main>
