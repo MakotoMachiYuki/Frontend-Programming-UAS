@@ -140,19 +140,16 @@ app.controller(
             AuthService.isAuthenticated().then(function (isAuthenticated) {
                 if (isAuthenticated) {
                     var user = AuthService.getUser();
-                    console.log(user); // Ensure user._id is available
-                    // Fetch the user's wishlist (there's only one wishlist per user)
+                    console.log(user);
                     $http.get("/api/wishlist/" + user._id).then(
                         function (response) {
                             let wishlist = response.data;
 
-                            // Check if product is already in the wishlist
                             if (wishlist.products.includes(product._id)) {
                                 alert(
                                     "This product is already in your wishlist."
                                 );
                             } else {
-                                // If product is not in the wishlist, add it
                                 addProductToWishlist(product._id, user._id);
                             }
                         },
@@ -167,7 +164,7 @@ app.controller(
         };
 
         function addProductToWishlist(productId, userId) {
-            $http.post("/api/wishlist/" + userId + "/" + productId).then(
+            $http.put("/api/wishlist/" + userId + "/" + productId).then(
                 function (response) {
                     alert("Product added to wishlist successfully!");
                 },

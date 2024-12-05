@@ -32,7 +32,8 @@ Route::get('/get-csrf-token', function () {
 });
 
 Route::get('/api/products', [ProductsController::class, 'showAllProducts'])->name('homePageView');
-Route::get('/api/product/{productName}', [ProductsController::class, 'productDetail'])->name('product.detail');
+Route::get('/api/product/{productName}', [ProductsController::class, 'productDetailName'])->name('product.detail');
+Route::get('/api/productId/{productId}', [ProductsController::class, 'productDetailId'])->name('product.detailId');
 Route::get('/api/profile', [ProfileController::class, 'getUser'])->name('getUser');
 
 Route::get('/api/product/{productName}/comments', [ProductsController::class, 'getComments'])->name('getComments');
@@ -45,9 +46,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/api/profile/delete', [ProfileController::class, 'deleteAccount']);
     Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
 
-    Route::get('/api/wishlist/{userId}', [WishlistController::class, 'showUserWishlist'])->name('wishlist.show');  // Show user wishlist
-    Route::post('/api/wishlist/{userId}/post', [WishlistController::class, 'create'])->name('wishlist.create');  // Create new wishlist if it doesn't exist
-    Route::post('/api/wishlist/{userId}/{productId}', [WishlistController::class, 'addProduct'])->name('wishlist.addProduct');
-    Route::delete('/api/wishlist/{userId}/{productId}delete', [WishlistController::class, 'removeProduct'])->name('wishlist.removeProduct');  // Remove product from wishlist
+    Route::get('/api/wishlist/{userId}', [WishlistController::class, 'showUserWishlist'])->name('wishlist.show');
+    Route::post('/api/wishlist/{userId}/post', [WishlistController::class, 'create'])->name('wishlist.create');
+    Route::put('/api/wishlist/{userId}/{productId}', [WishlistController::class, 'addProduct'])->name('wishlist.addProduct');
+    Route::delete('/api/wishlist/{userId}/{productId}/delete', [WishlistController::class, 'removeProduct'])->name('wishlist.removeProduct');
 
 });

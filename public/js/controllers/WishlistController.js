@@ -1,7 +1,6 @@
 app.controller("WishlistController", function ($scope, $http) {
-    $scope.wishlist = {}; // Only one wishlist per user
+    $scope.wishlist = null;
 
-    // Fetch user profile to get user ID
     $http({
         method: "GET",
         url: "/api/profile",
@@ -15,11 +14,27 @@ app.controller("WishlistController", function ($scope, $http) {
             if (response.data && typeof response.data.user === "object") {
                 const userId = response.data.user._id;
 
-                // Step 2: Fetch the user's wishlist (only one per user)
                 $http.get("/api/wishlist/" + userId).then(
-                    // Fetching wishlist without userId in the URL
                     function (wishlistResponse) {
-                        $scope.wishlist = wishlistResponse.data; // Only one wishlist
+                        $scope.wishlist = wishlistResponse.data;
+
+                        $scope.wishlist.productsDetails = [];
+
+                        $scope.wishlist.products.forEach(function (productId) {
+                            $http.get("/api/productId/" + productId).then(
+                                function (productResponse) {
+                                    $scope.wishlist.productsDetails.push(
+                                        productResponse.data
+                                    );
+                                },
+                                function (error) {
+                                    console.error(
+                                        "Error fetching product details:",
+                                        error
+                                    );
+                                }
+                            );
+                        });
                     },
                     function (error) {
                         console.error("Error fetching wishlist:", error);
@@ -36,34 +51,21 @@ app.controller("WishlistController", function ($scope, $http) {
             alert("Failed to fetch user profile.");
         });
 
-    // Add product to wishlist
-    $scope.addProduct = function (productId) {
-        const userId = $scope.user._id; // Assuming user object is already set
-
+    $scope.removeProduct = function (wishlistId, productId) {
+        const userId = $scope.wishlist.user_id;
         $http
-            .post(`/api/wishlist/${productId}/${userId}`) // Updated endpoint
-            .then(
-                function (response) {
-                    alert("Product added to wishlist");
+            .delete("/api/wishlist/" + userId + "/" + productId + "/delete")
+            .then(function (response) {
+                alert(response.data.message);
 
-                    // Reload wishlist data after adding product
-                    $http.get("/api/wishlist").then(
-                        function (wishlistResponse) {
-                            $scope.wishlist = wishlistResponse.data;
-                        },
-                        function (error) {
-                            console.error(
-                                "Error fetching updated wishlist:",
-                                error
-                            );
-                            alert("Failed to reload wishlist.");
-                        }
-                    );
-                },
-                function (error) {
-                    console.error("Error adding product:", error);
-                    alert("Failed to add product to wishlist.");
-                }
-            );
+                $scope.wishlist.productsDetails =
+                    $scope.wishlist.productsDetails.filter(function (product) {
+                        return product._id !== productId;
+                    });
+            })
+            .catch(function (error) {
+                console.error("Error removing product from wishlist:", error);
+                alert("Failed to remove product from wishlist.");
+            });
     };
 });

@@ -8,89 +8,91 @@ use App\Models\Wishlist;
 
 class WishlistController extends Controller
 {
-    // Show user's wishlist
-// Show user's wishlist
-public function showUserWishlist($userId)
-{
-    // Fetch the wishlist for the given user
-    $wishlist = Wishlist::where('user_id', $userId)->first();
+    public function showUserWishlist($userId)
+    {
+        $wishlist = Wishlist::where('user_id', $userId)->first();
 
-    // If no wishlist exists, create one with products as an empty string
-    if (!$wishlist) {
-        $wishlist = new Wishlist();
-        $wishlist->user_id = $userId;
-        $wishlist->products = '';  // Initialize as an empty string
-        $wishlist->save();
+        if (!$wishlist) {
+            $wishlist = new Wishlist();
+            $wishlist->user_id = $userId;
+            $wishlist->products = '';
+            $wishlist->save();
+        }
+
+        $productsArray = !empty($wishlist->products) ? explode(',', $wishlist->products) : [];
+        $wishlist->products = $productsArray;
+
+        return response()->json($wishlist);
     }
 
-    // Convert the products string into an array before returning
-    $productsArray = !empty($wishlist->products) ? explode(',', $wishlist->products) : [];
-    $wishlist->products = $productsArray;
-
-    return response()->json($wishlist);
-}
-
-
-
-    // Create a new wishlist if it doesn't exist
     public function create(Request $request)
     {
         $userId = Auth::id();
 
-        // Check if the user already has a wishlist
         $existingWishlist = Wishlist::where('user_id', $userId)->first();
         if ($existingWishlist) {
             return response()->json(['message' => 'User already has a wishlist.'], 400);
         }
 
-        // Create a new wishlist
         $wishlist = new Wishlist();
         $wishlist->user_id = $userId;
         $wishlist->products = [];
-        
+
         if ($wishlist->save()) {
             return response()->json(['message' => 'Wishlist created successfully.']);
         }
 
         return response()->json(['message' => 'Failed to create wishlist.'], 500);
     }
+
     public function addProduct(Request $request, $userId, $productId)
     {
-        // Fetch the wishlist for the given user
         $wishlist = Wishlist::where('user_id', $userId)->first();
-    
-        // If no wishlist exists, create a new one with products as an empty string
+
         if (!$wishlist) {
             $wishlist = new Wishlist();
             $wishlist->user_id = $userId;
-            $wishlist->products = '';  // Initialize as an empty string
+            $wishlist->products = '';
             $wishlist->save();
         }
-    
-        // Convert the 'products' string to an array
+
         $productArray = !empty($wishlist->products) ? explode(',', $wishlist->products) : [];
-    
-        // Check if the product is already in the wishlist
+
         if (in_array($productId, $productArray)) {
             return response()->json(['message' => 'Product already in the wishlist.'], 400);
         }
-    
-        // Add the new product to the array
+
         $productArray[] = $productId;
-    
-        // Convert the array back to a comma-separated string and save
+
         $wishlist->products = implode(',', $productArray);
         $wishlist->save();
-    
+
         return response()->json(['message' => 'Product added to wishlist.']);
     }
-    
-    
-    
-    
-    
-    
-    
 
+    // New method to remove a product from the wishlist
+    public function removeProduct($userId, $productId)
+    {
+        $wishlist = Wishlist::where('user_id', $userId)->first();
 
+        if (!$wishlist) {
+            return response()->json(['message' => 'Wishlist not found.'], 404);
+        }
+
+        $productArray = !empty($wishlist->products) ? explode(',', $wishlist->products) : [];
+
+        if (!in_array($productId, $productArray)) {
+            return response()->json(['message' => 'Product not found in the wishlist.'], 404);
+        }
+
+        // Remove the product from the array
+        $productArray = array_filter($productArray, function ($product) use ($productId) {
+            return $product != $productId;
+        });
+
+        $wishlist->products = implode(',', $productArray);
+        $wishlist->save();
+
+        return response()->json(['message' => 'Product removed from wishlist.']);
+    }
 }

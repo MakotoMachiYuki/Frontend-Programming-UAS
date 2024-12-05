@@ -20,7 +20,7 @@ class ProductsController extends Controller
         return response()->json($products);
     }
 
-    public function productDetail($productName)
+    public function productDetailName($productName)
     {
         $product = Products::where('productName', $productName)->first();
 
@@ -32,7 +32,21 @@ class ProductsController extends Controller
 
     }
 
-    public function getComments($productName) {
+    public function productDetailId($productId)
+    {
+        $product = Products::where('_id', $productId)->first();
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        return response()->json($product);
+
+    }
+
+
+    public function getComments($productName)
+    {
         $comments = Comments::where('product_name', $productName)->get();
         return response()->json($comments);
     }
@@ -46,7 +60,7 @@ class ProductsController extends Controller
         $comment->content = $request->input('content');
         $comment->save();
 
-        return response()->json($comment);  
+        return response()->json($comment);
     }
 
     public function updateComment(Request $request, $commentId)
@@ -54,18 +68,18 @@ class ProductsController extends Controller
         $comment = Comments::find($commentId);
         if (!$comment) {
             return response()->json(['error' => 'Comment not found'], 404);
-    }
+        }
 
-    \Log::info('Updating comment:', ['commentId' => $commentId, 'content' => $request->input('content')]);
+        \Log::info('Updating comment:', ['commentId' => $commentId, 'content' => $request->input('content')]);
 
-    $request->validate([
-        'content' => 'required|string',
-    ]);
+        $request->validate([
+            'content' => 'required|string',
+        ]);
 
-    $comment->content = $request->input('content');
-    $comment->save();
+        $comment->content = $request->input('content');
+        $comment->save();
 
-    return response()->json($comment);
+        return response()->json($comment);
     }
 
 
