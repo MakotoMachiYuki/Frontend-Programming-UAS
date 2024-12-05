@@ -37,5 +37,7 @@ app.controller("HomepageController", [
             .catch(function (error) {
                 console.error("Error fetching products:", error);
             });
+
+        $scope.sortCriteria = "";
     },
 ]);

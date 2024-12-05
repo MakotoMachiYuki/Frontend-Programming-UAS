@@ -19,12 +19,23 @@
         </div>
     </div>
 
+    <div id="sortOptions" class="mb-3" style="display: flex; justify-content: flex-end; padding: 20px 15px 0 0;">
+        <select id="sortDropdown" class="form-select" ng-model="sortCriteria" style="width: 10%;">
+            <option value="">Sort by</option>
+            <option value="productName">Name (A-Z)</option>
+            <option value="-productName">Name (Z-A)</option>
+            <option value="lowestPrice">Price (Low to High)</option>
+            <option value="-lowestPrice">Price (High to Low)</option>
+        </select>
+    </div>
+
+
     <div id="productTab"><span class="tab active">Products</span></div>
     <div id="productsContainerDiv">
         <div id="productsContainer" class="products">
             <a
-                ng-repeat="product in products"
-                ng-href="#!/product/{{product.productName}}"
+                ng-repeat="product in products | orderBy:sortCriteria:sortReverse"
+            ng-href="#!/product/{{product.productName}}"
             >
                 <div class="product">
                     <img
