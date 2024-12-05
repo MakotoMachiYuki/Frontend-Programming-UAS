@@ -10,13 +10,32 @@ app.filter("encodeURIComponent", function () {
     };
 });
 
-app.service("AuthService", function ($http) {
-    this.isAuthenticated = function () {
-        return $http.get("/api/auth-status").then(function (response) {
-            return response.data.authenticated;
-        });
+app.factory('AuthService', function ($http, $q) {
+    var currentUser = null;
+
+    return {
+        isAuthenticated: function () {
+            var deferred = $q.defer();
+
+            $http.get('/api/auth/check').then(function (response) {
+                if (response.data.isAuthenticated) {
+                    currentUser = response.data.user;
+                    deferred.resolve(true);
+                } else {
+                    deferred.resolve(false);
+                }
+            }, function () {
+                deferred.resolve(false);
+            });
+
+            return deferred.promise;
+        },
+        getUser: function () {
+            return currentUser;
+        }
     };
 });
+
 
 app.factory("csrfInterceptor", function ($q) {
     var csrfToken = document
