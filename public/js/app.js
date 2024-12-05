@@ -11,27 +11,12 @@ app.filter("encodeURIComponent", function () {
 });
 
 app.factory("AuthService", function ($http, $q) {
-    var currentUser = null;
-app.factory("AuthService", function ($http, $q) {
     let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
 
     return {
         isAuthenticated: function () {
             let deferred = $q.defer();
 
-            $http.get("/api/auth/check").then(
-                function (response) {
-                    if (response.data.isAuthenticated) {
-                        currentUser = response.data.user;
-                        deferred.resolve(true);
-                    } else {
-                        deferred.resolve(false);
-                    }
-                },
-                function () {
-                    deferred.resolve(false);
-                }
-            );
             if (currentUser) {
                 deferred.resolve(true);
             } else {
@@ -49,7 +34,6 @@ app.factory("AuthService", function ($http, $q) {
                         }
                     },
                     function () {
-                        // This block is triggered if there's a 401 or any other error
                         deferred.resolve(false);
                     }
                 );
@@ -65,6 +49,15 @@ app.factory("AuthService", function ($http, $q) {
 
         getUser: function () {
             return currentUser;
+        },
+
+        isAdmin: function () {
+            return currentUser && currentUser.access === "admin";
+        },
+
+        logout: function () {
+            currentUser = null;
+            localStorage.removeItem("currentUser");
         },
     };
 });

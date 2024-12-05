@@ -70,7 +70,7 @@ class WishlistController extends Controller
         return response()->json(['message' => 'Product added to wishlist.']);
     }
 
-    // New method to remove a product from the wishlist
+
     public function removeProduct($userId, $productId)
     {
         $wishlist = Wishlist::where('user_id', $userId)->first();
@@ -85,7 +85,7 @@ class WishlistController extends Controller
             return response()->json(['message' => 'Product not found in the wishlist.'], 404);
         }
 
-        // Remove the product from the array
+
         $productArray = array_filter($productArray, function ($product) use ($productId) {
             return $product != $productId;
         });

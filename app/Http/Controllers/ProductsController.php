@@ -29,6 +29,19 @@ class ProductsController extends Controller
         }
 
         return response()->json($product);
+
+    }
+
+    public function productDetailId($productId)
+    {
+        $product = Products::where('_id', $productId)->first();
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        return response()->json($product);
+
     }
 
     public function updateProduct($productName, Request $request)
@@ -59,18 +72,6 @@ class ProductsController extends Controller
         $product->delete();
 
         return response()->json(['message' => 'Product deleted successfully!']);
-    }
-
-    public function productDetailId($productId)
-    {
-        $product = Products::where('_id', $productId)->first();
-
-        if (!$product) {
-            return response()->json(['error' => 'Product not found'], 404);
-        }
-
-        return response()->json($product);
-
     }
 
 
@@ -111,17 +112,6 @@ class ProductsController extends Controller
         return response()->json($comment);
     }
 
-    public function deleteComment($commentId)
-    {
-        $comment = Comments::find($commentId);
 
-        if (!$comment) {
-            return response()->json(['error' => 'Comment not found'], 404);
-        }
-
-        $comment->delete();
-
-        return response()->json(['message' => 'Comment deleted successfully']);
-    }
 
 }

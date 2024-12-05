@@ -22,7 +22,6 @@ app.controller(
                     },
                 })
                     .then(function (response) {
-                        console.log(response.data);
                         if (
                             response.data &&
                             typeof response.data.user === "object"
@@ -92,11 +91,7 @@ app.controller(
                 );
         };
 
-        $scope.startEditing = function (comment) {
-            console.log("Editing comment:", comment);
-            $scope.editingComment = angular.copy(comment);
-            console.log($scope.editingComment._id);
-        };
+        $scope.startEditing = function (comment) {};
 
         $scope.cancelEditing = function () {
             $scope.editingComment = null;
@@ -121,9 +116,8 @@ app.controller(
                 },
             }).then(
                 function (response) {
-                    console.log("Update successful:", response.data);
                     const index = $scope.comments.findIndex(
-                        (c) => c._id === response.data._id
+                        (c) => c.id === response.data.id
                     );
                     if (index !== -1) {
                         $scope.comments[index] = response.data;
@@ -140,29 +134,75 @@ app.controller(
         $scope.addToWishlist = function (product) {
             AuthService.isAuthenticated().then(function (isAuthenticated) {
                 if (isAuthenticated) {
-                    var user = AuthService.getUser();
-                    console.log(user);
-                    $http.get("/api/wishlist/" + user._id).then(
-                        function (response) {
-                            let wishlist = response.data;
+                    $http({
+                        method: "GET",
+                        url: "/api/profile",
+                        headers: {
+                            "X-CSRF-TOKEN": document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content"),
+                        },
+                    })
+                        .then(function (response) {
+                            if (
+                                response.data &&
+                                typeof response.data.user === "object"
+                            ) {
+                                const userId = response.data.user._id;
 
-                            if (wishlist.products.includes(product._id)) {
-                                alert(
-                                    "This product is already in your wishlist."
+                                $http.get("/api/wishlist/" + userId).then(
+                                    function (response) {
+                                        let wishlist = response.data;
+
+                                        if (
+                                            wishlist.products.includes(
+                                                product._id
+                                            )
+                                        ) {
+                                            alert(
+                                                "This product is already in your wishlist."
+                                            );
+                                        } else {
+                                            addProductToWishlist(
+                                                product._id,
+                                                userId
+                                            );
+                                        }
+                                    },
+                                    function (error) {
+                                        alert("Failed to fetch wishlist.");
+                                    }
                                 );
                             } else {
-                                addProductToWishlist(product._id, user._id);
+                                console.error(
+                                    "Invalid profile data structure:",
+                                    response.data
+                                );
+                                alert(
+                                    "Failed to retrieve user profile. Please try again."
+                                );
                             }
-                        },
-                        function (error) {
-                            alert("Failed to fetch wishlist.");
-                        }
-                    );
+                        })
+                        .catch(function (error) {
+                            console.error("Error fetching profile:", error);
+                            alert("Failed to fetch user profile.");
+                        });
                 } else {
                     alert("Please log in to add products to your wishlist.");
                 }
             });
         };
+
+        function addProductToWishlist(productId, userId) {
+            $http.put("/api/wishlist/" + userId + "/" + productId).then(
+                function (response) {
+                    alert("Product added to wishlist successfully!");
+                },
+                function (error) {
+                    alert("Failed to add product to wishlist.");
+                }
+            );
+        }
 
         function addProductToWishlist(productId, userId) {
             $http.put("/api/wishlist/" + userId + "/" + productId).then(

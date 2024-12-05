@@ -19,18 +19,15 @@ Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name(
 
 
 Route::get('/api/auth/check', function () {
-    $user = Auth::user();
-
-    return response()->json([
-        'isAuthenticated' => Auth::check(),
-        'user' => $user ? [
-            'email' => $user->email,
-            'firstName' => $user->firstName,
-            'access' => $user->access
-        ] : null,
-    ]);
+    if (Auth::check()) {
+        return response()->json([
+            'isAuthenticated' => true,
+            'user' => Auth::user(),
+        ]);
+    } else {
+        return response()->json(['isAuthenticated' => false]);
+    }
 });
-
 
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
@@ -50,5 +47,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/api/profile/update', [ProfileController::class, 'updateProfile']);
     Route::delete('/api/profile/delete', [ProfileController::class, 'deleteAccount']);
     Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
+
+    Route::get('/api/wishlist/{userId}', [WishlistController::class, 'showUserWishlist'])->name('wishlist.show');
+    Route::post('/api/wishlist/{userId}/post', [WishlistController::class, 'create'])->name('wishlist.create');
+    Route::put('/api/wishlist/{userId}/{productId}', [WishlistController::class, 'addProduct'])->name('wishlist.addProduct');
+    Route::delete('/api/wishlist/{userId}/{productId}/delete', [WishlistController::class, 'removeProduct'])->name('wishlist.removeProduct');
+
+    Route::put('/api/product/update/{productName}', [ProductsController::class, 'updateProduct']);
+    Route::delete('/api/product/delete/{productName}', [ProductsController::class, 'deleteProduct']);
 
 });

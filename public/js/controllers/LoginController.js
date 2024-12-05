@@ -24,12 +24,10 @@ app.controller(
             })
                 .then(function (response) {
                     if (response.data.success) {
-                        // Check if the user object is present
                         const user = response.data.user;
                         if (user) {
                             AuthService.setAuthenticated(user);
 
-                            // Redirect based on user role
                             if (user.access === "admin") {
                                 $location.path("/admin");
                             } else {

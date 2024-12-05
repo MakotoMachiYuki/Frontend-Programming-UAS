@@ -3,7 +3,6 @@ app.controller(
     function ($scope, $http, $routeParams, $location) {
         $scope.product = {};
 
-        // Fetch product details based on productId
         var productId = $routeParams.productId;
 
         $http
@@ -15,7 +14,6 @@ app.controller(
                 console.error("Error fetching product:", error);
             });
 
-        // Update product details
         $scope.updateProduct = function () {
             $http({
                 method: "PUT",
@@ -38,7 +36,6 @@ app.controller(
                 });
         };
 
-        // Delete product
         $scope.deleteProduct = function () {
             if (confirm("Are you sure you want to delete this product?")) {
                 $http({
