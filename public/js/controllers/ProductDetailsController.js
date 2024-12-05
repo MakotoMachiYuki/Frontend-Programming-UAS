@@ -94,6 +94,7 @@ app.controller(
 
         $scope.startEditing = function (comment) {
             console.log("Editing comment:", comment);
+            $scope.editingComment = angular.copy(comment);
             console.log($scope.editingComment._id);
         };
 
@@ -122,7 +123,7 @@ app.controller(
                 function (response) {
                     console.log("Update successful:", response.data);
                     const index = $scope.comments.findIndex(
-                        (c) => c.id === response.data.id
+                        (c) => c._id === response.data._id
                     );
                     if (index !== -1) {
                         $scope.comments[index] = response.data;
