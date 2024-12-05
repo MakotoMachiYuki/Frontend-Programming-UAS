@@ -10,6 +10,7 @@ app.filter("encodeURIComponent", function () {
     };
 });
 
+
 app.service("AuthService", function ($http) {
     let user = null;
 
@@ -19,6 +20,31 @@ app.service("AuthService", function ($http) {
             user = response.data.user;
             return user;
         });
+
+app.factory('AuthService', function ($http, $q) {
+    var currentUser = null;
+
+    return {
+        isAuthenticated: function () {
+            var deferred = $q.defer();
+
+            $http.get('/api/auth/check').then(function (response) {
+                if (response.data.isAuthenticated) {
+                    currentUser = response.data.user;
+                    deferred.resolve(true);
+                } else {
+                    deferred.resolve(false);
+                }
+            }, function () {
+                deferred.resolve(false);
+            });
+
+            return deferred.promise;
+        },
+        getUser: function () {
+            return currentUser;
+        }
+
     };
 
     // Method to set the user after successful login
@@ -36,6 +62,7 @@ app.service("AuthService", function ($http) {
         return user && user.access === "admin";
     };
 });
+
 
 app.factory("csrfInterceptor", function ($q) {
     var csrfToken = document
