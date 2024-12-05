@@ -49,25 +49,34 @@ class ProductsController extends Controller
         return response()->json($comment);  
     }
 
-    public function updateComment(Request $request, $commentId)
-    {
+    public function updateComment(Request $request, $commentId){
         $comment = Comments::find($commentId);
+            if (!$comment) {
+                return response()->json(['error' => 'Comment not found'], 404);
+            }
+
+        \Log::info('Updating comment:', ['commentId' => $commentId, 'content' => $request->input('content')]);
+
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $comment->content = $request->input('content');
+        $comment->save();
+
+        return response()->json($comment);
+        }
+
+    public function deleteComment($commentId){
+        $comment = Comments::find($commentId);
+
         if (!$comment) {
             return response()->json(['error' => 'Comment not found'], 404);
+        }
+
+        $comment->delete();
+
+        return response()->json(['message' => 'Comment deleted successfully']);
     }
-
-    \Log::info('Updating comment:', ['commentId' => $commentId, 'content' => $request->input('content')]);
-
-    $request->validate([
-        'content' => 'required|string',
-    ]);
-
-    $comment->content = $request->input('content');
-    $comment->save();
-
-    return response()->json($comment);
-    }
-
-
 
 }
