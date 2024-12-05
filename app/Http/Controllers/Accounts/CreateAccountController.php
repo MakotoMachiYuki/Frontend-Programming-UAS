@@ -50,6 +50,7 @@ class CreateAccountController extends Controller
             'lastName' => $request->lastName,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'access' => "user",
         ]);
 
         return response()->json([

@@ -1,12 +1,13 @@
 app.controller(
     "LoginController",
-    function ($scope, $http, $location, $httpParamSerializer) {
+    function ($scope, $http, $location, $httpParamSerializer, AuthService) {
         $scope.loginData = {
             email: "",
             password: "",
         };
 
         $scope.errorMessage = "";
+
         $scope.loginAccount = function () {
             const serializedData = $httpParamSerializer($scope.loginData);
 
@@ -23,7 +24,19 @@ app.controller(
             })
                 .then(function (response) {
                     if (response.data.success) {
-                        $location.path("/profile");
+                        const user = response.data.user;
+                        if (user) {
+                            AuthService.setAuthenticated(user);
+
+                            if (user.access === "admin") {
+                                $location.path("/admin");
+                            } else {
+                                $location.path("/profile");
+                            }
+                        } else {
+                            $scope.errorMessage =
+                                "User information is missing from the server response.";
+                        }
                     } else {
                         $scope.errorMessage =
                             response.data.message ||

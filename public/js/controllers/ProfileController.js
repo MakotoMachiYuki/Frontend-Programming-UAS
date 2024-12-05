@@ -65,6 +65,7 @@ app.controller(
                 },
             })
                 .then(function (response) {
+                    clearBrowserData();
                     window.location.href = "/";
                 })
                 .catch(function (error) {
@@ -89,7 +90,8 @@ app.controller(
                 })
                     .then(function (response) {
                         alert("Your account has been deleted successfully.");
-                        $location.path("/");
+                        clearBrowserData();
+                        window.location.href = "/";
                     })
                     .catch(function (error) {
                         console.error("Error deleting account:", error);
@@ -99,5 +101,26 @@ app.controller(
                     });
             }
         };
+
+        function clearBrowserData() {
+            document.cookie.split(";").forEach(function (cookie) {
+                var eqPos = cookie.indexOf("=");
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie =
+                    name +
+                    "=;expires=Thu, 01 Jan 2050 00:00:00 GMT;path=/;domain=" +
+                    window.location.hostname;
+            });
+
+            localStorage.clear();
+            sessionStorage.clear();
+            if ("caches" in window) {
+                caches.keys().then(function (names) {
+                    for (let name of names) {
+                        caches.delete(name);
+                    }
+                });
+            }
+        }
     }
 );

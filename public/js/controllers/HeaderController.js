@@ -1,39 +1,68 @@
 app.controller("HeaderController", [
     "$scope",
-    function ($scope) {
+    "$timeout",
+    "$http",
+    function ($scope, $timeout, $http) {
         $scope.sidebarVisible = false;
         $scope.searchVisible = false;
 
         $scope.searchInput = "";
         $scope.foundProducts = [];
+
         $scope.toggleSidebar = function () {
-            $timeout(() => {
-                $scope.sidebarVisible = !$scope.sidebarVisible;
+            console.log("Toggling Sidebar");
+            $scope.sidebarVisible = !$scope.sidebarVisible;
+
+            if ($scope.sidebarVisible) {
+                $("#sidebarMenu").css({
+                    display: "flex",
+                    opacity: "1",
+                    transform: "translateX(0)",
+                });
+                attachClickListenerSidebar();
+            } else {
+                $("#sidebarMenu").css({
+                    display: "none",
+                    opacity: "0",
+                    transform: "translateX(-100%)",
+                });
+                removeClickListenerSidebar();
+            }
+        };
+
+        $http
+            .get("/api/products")
+            .then(function (response) {
+                $scope.products = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error fetching products:", error);
             });
-        };
-        $scope.closeSidebar = function () {
-            console.log("Closing Sidebar");
-            $scope.sidebarVisible = false;
-        };
 
         $scope.toggleSearch = function () {
             console.log("Toggling Search");
             $scope.searchVisible = !$scope.searchVisible;
-            if ($scope.searchVisible) {
-                setTimeout(() => {
+
+            $timeout(() => {
+                if ($scope.searchVisible) {
+                    $("#searchHeader").css({ display: "flex", opacity: "1" });
                     document.getElementById("searchInput").focus();
-                }, 0);
-            } else {
-                $scope.searchInput = "";
-                $scope.foundProducts = [];
-            }
+                    attachClickListenerSearch();
+                } else {
+                    $("#searchHeader").css({ display: "none", opacity: "0" });
+                    $scope.searchInput = "";
+                    $scope.foundProducts = [];
+                    removeClickListenerSearch();
+                }
+            }, 0);
         };
 
         $scope.search = function () {
             const input = $scope.searchInput.trim().toLowerCase();
             console.log("Search input:", input);
-            $scope.foundProducts = $scope.productsSearch.filter((product) =>
-                product.name.toLowerCase().includes(input)
+
+            $scope.foundProducts = $scope.products.filter((product) =>
+                product.productName.toLowerCase().includes(input)
             );
             console.log("Found products:", $scope.foundProducts);
         };
@@ -42,15 +71,54 @@ app.controller("HeaderController", [
             return $scope.searchInput && $scope.foundProducts.length === 0;
         };
 
-        $scope.toggleDropdown = function (event) {
-            const dropdown = angular.element(event.currentTarget).next();
-            const isVisible = dropdown.hasClass("open");
+        function attachClickListenerSearch() {
+            $(document).on("click", handleOutsideClickSearch);
+        }
 
-            angular.element(".dropDownContent").removeClass("open").slideUp();
+        function removeClickListenerSearch() {
+            $(document).off("click", handleOutsideClickSearch);
+        }
 
-            if (!isVisible) {
-                dropdown.addClass("open").slideDown();
+        function attachClickListenerSidebar() {
+            $(document).on("click", handleOutsideClickSidebar);
+        }
+
+        function removeClickListenerSidebar() {
+            $(document).off("click", handleOutsideClickSidebar);
+        }
+
+        function handleOutsideClickSearch(event) {
+            const $target = $(event.target);
+            if (
+                !$target.closest("#searchHeader").length &&
+                !$target.is("#mainSearchGlassLogo")
+            ) {
+                $scope.$apply(() => {
+                    $scope.searchVisible = false;
+                    $("#searchHeader").css({ display: "none", opacity: "0" });
+                    $scope.searchInput = "";
+                    $scope.foundProducts = [];
+                });
+                removeClickListenerSearch();
             }
-        };
+        }
+
+        function handleOutsideClickSidebar(event) {
+            const $target = $(event.target);
+            if (
+                !$target.closest("#sidebarMenu").length &&
+                !$target.is("#menuToggle")
+            ) {
+                $scope.$apply(() => {
+                    $scope.sidebarVisible = false;
+                    $("#sidebarMenu").css({
+                        display: "none",
+                        opacity: "0",
+                        transform: "translateX(-100%)",
+                    });
+                });
+                removeClickListenerSidebar();
+            }
+        }
     },
 ]);

@@ -120,27 +120,6 @@ header {
     display: none;
 }
 
-#searchHeader {
-    display: none;
-    opacity: 0;
-    top: 0;
-    flex-direction: column;
-    padding-top: 0;
-    position: sticky;
-    z-index: 1000;
-}
-
-#searchHeader {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-#searchHeader[ng-show] {
-    visibility: visible;
-    opacity: 1;
-}
-
 #searchDiv {
     display: flex;
     position: relative;
@@ -205,13 +184,6 @@ header {
     color: black;
 }
 
-.productSearch img {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-}
-
 .productInfoSearch {
     text-align: center;
     margin-top: 10px;
@@ -230,9 +202,30 @@ header {
 #menuToggleDiv {
     display: none;
 }
+#searchHeader {
+    width: 100vw;
+    padding: 20px;
+    background-color: black;
+    color: white;
+    position: relative;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#searchHeader.ng-show {
+    display: flex !important;
+    flex-direction: column;
+    opacity: 1;
+}
+
+#searchHeader.ng-hide {
+    display: none !important;
+    opacity: 0;
+}
 
 #sidebarMenu {
-    display: none;
     flex-direction: column;
     position: fixed;
     top: 0;
@@ -242,32 +235,45 @@ header {
     background-color: black;
     z-index: 10000;
     padding: 20px;
-    padding-top: 10px;
     color: white;
-}
-
-#sidebarMenu {
-    visibility: hidden; /* Use visibility instead */
+    display: none;
     opacity: 0;
-    transform: translateX(-100%); /* Start off-screen */
+    transform: translateX(-100%);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-#sidebarMenu[ng-show="true"] {
-    visibility: visible;
+#sidebarMenu.ng-hide {
+    display: none !important;
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+#sidebarMenu.ng-show {
+    display: flex !important;
     opacity: 1;
-    transform: translateX(0); /* Slide into view */
+    transform: translateX(0);
 }
 
-#closeSidebar {
-    font-size: 3rem;
-    cursor: pointer;
-    text-align: left;
-    border-bottom: white solid 2px;
+#productContainerSearch {
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    margin-top: 19.5px;
+    width: 100vw;
+    padding: 20px;
+    background-color: black;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-#sidebarMenu ul {
-    padding: 20px 0;
+#productContainerSearch.ng-hide {
+    display: none !important;
+}
+
+#productContainerSearch.ng-show {
+    display: flex !important;
 }
 
 .menuItem {
