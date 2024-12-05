@@ -28,6 +28,10 @@
                 <button
                     ng-if="isLoggedIn && user.email === comment.user_email && (!editingComment || editingComment.id !== comment.id)"
                     ng-click="startEditing(comment)" class="btn btn-success">Edit</button>
+                <button ng-if="isLoggedIn && user.email === comment.user_email" ng-click="deleteComment(comment.id)"
+                    class="btn btn-danger float-right ml-2">
+                    Delete
+                </button>
             </div>
         </div>
     </div>

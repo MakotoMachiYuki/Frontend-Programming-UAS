@@ -135,5 +135,32 @@ app.controller(
                 }
             );
         };
+
+        $scope.deleteComment = function (commentId) {
+            if (!confirm("Are you sure you want to delete this comment?")) {
+                return;
+            }
+
+            $http({
+                method: "DELETE",
+                url: "/api/comment/" + commentId,
+                headers: {
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+            }).then(
+                function (response) {
+                    console.log("Comment deleted successfully");
+                    $scope.comments = $scope.comments.filter(
+                        (comment) => comment.id !== commentId
+                    );
+                },
+                function (error) {
+                    console.error("Error deleting comment:", error);
+                    alert("There was an error deleting the comment.");
+                }
+            );
+        };
     }
 );
