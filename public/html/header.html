@@ -31,12 +31,15 @@
                 </ul>
             </div>
         </li>
-        <i
-            class="fa-solid fa-magnifying-glass"
-            id="mainSearchGlassLogo"
-            ng-click="toggleSearch()"
-        ></i>
-        <a href="/#!/profile"><i class="fa-solid fa-user"></i></a>
+        <a href="#" ng-click="toggleSearch()">
+            <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+        </a>
+        <a href="/#!/wishlist">
+            <i class="fa-solid fa-heart" id="wishlistIcon"></i>
+        </a>        
+        <a href="/#!/profile">
+            <i class="fa-solid fa-user" id="profileIcon"></i>
+        </a>
     </ul>
 
     <div id="sidebarMenu" ng-show="sidebarVisible">
@@ -64,6 +67,7 @@
             </li>
         </ul>
     </div>
+
     <div id="searchHeader" ng-show="searchVisible">
         <div id="searchDiv">
             <i class="fa-solid fa-magnifying-glass" id="searchGlassLogo"></i>
