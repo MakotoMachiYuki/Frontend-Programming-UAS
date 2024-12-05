@@ -22,24 +22,20 @@ Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->na
 Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
 
 
-Route::get('/api/auth-status', function () {
+Route::get('/api/auth/check', function () {
     $user = Auth::user();
+
     return response()->json([
-        'authenticated' => Auth::check(),
-        'user' => $user ? ['email' => $user->email, 'firstName' => $user->firstName, 'access' => $user->access] : null
+        'isAuthenticated' => Auth::check(),
+        'user' => $user ? [
+            'email' => $user->email,
+            'firstName' => $user->firstName,
+            'access' => $user->access
+        ] : null,
     ]);
 });
 
-Route::get('/api/auth/check', function () {
-    if (Auth::check()) {
-        return response()->json([
-            'isAuthenticated' => true,
-            'user' => Auth::user(),
-        ]);
-    } else {
-        return response()->json(['isAuthenticated' => false]);
-    }
-});
+
 
 
 

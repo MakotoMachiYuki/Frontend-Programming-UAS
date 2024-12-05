@@ -10,62 +10,61 @@ app.filter("encodeURIComponent", function () {
     };
 });
 
-
-app.service("AuthService", function ($http) {
-    let user = null;
-
-    // Method to check if user is authenticated and fetch user details
-    this.isAuthenticated = function () {
-        return $http.get("/api/auth-status").then(function (response) {
-            user = response.data.user;
-            return user;
-        });
-
-app.factory('AuthService', function ($http, $q) {
-    var currentUser = null;
+app.factory("AuthService", function ($http, $q) {
+    let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
 
     return {
         isAuthenticated: function () {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
 
-            $http.get('/api/auth/check').then(function (response) {
-                if (response.data.isAuthenticated) {
-                    currentUser = response.data.user;
-                    deferred.resolve(true);
-                } else {
-                    deferred.resolve(false);
-                }
-            }, function () {
-                deferred.resolve(false);
-            });
+            if (currentUser) {
+                deferred.resolve(true);
+            } else {
+                $http.get("/api/auth/check").then(
+                    function (response) {
+                        if (response.data.isAuthenticated) {
+                            currentUser = response.data.user;
+                            localStorage.setItem(
+                                "currentUser",
+                                JSON.stringify(currentUser)
+                            );
+                            deferred.resolve(true);
+                        } else {
+                            deferred.resolve(false);
+                        }
+                    },
+                    function () {
+                        // This block is triggered if there's a 401 or any other error
+                        deferred.resolve(false);
+                    }
+                );
+            }
 
             return deferred.promise;
         },
+
+        setAuthenticated: function (user) {
+            currentUser = user;
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        },
+
         getUser: function () {
             return currentUser;
-        }
+        },
 
-    };
+        isAdmin: function () {
+            return currentUser && currentUser.access === "admin";
+        },
 
-    // Method to set the user after successful login
-    this.setAuthenticated = function (userData) {
-        user = userData;
-    };
-
-    // Method to get the user details
-    this.getUser = function () {
-        return user;
-    };
-
-    // Method to check if the user is an admin
-    this.isAdmin = function () {
-        return user && user.access === "admin";
+        logout: function () {
+            currentUser = null;
+            localStorage.removeItem("currentUser");
+        },
     };
 });
 
-
 app.factory("csrfInterceptor", function ($q) {
-    var csrfToken = document
+    const csrfToken = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
 
