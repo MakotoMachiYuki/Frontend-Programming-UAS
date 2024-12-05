@@ -1,0 +1,22 @@
+body {
+    background-color: #121212;
+    color: #ffffff;
+}
+.card-header {
+    background-color: #1c1c1c;
+}
+.table thead th {
+    color: #f0f0f0;
+    background-color: #2a2a2a;
+}
+.btn-outline-light {
+    border-color: #f0f0f0;
+    color: #f0f0f0;
+}
+.btn-outline-light:hover {
+    background-color: #f0f0f0;
+    color: #121212;
+}
+.table-hover tbody tr:hover {
+    background-color: #343a40;
+}

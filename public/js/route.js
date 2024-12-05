@@ -4,31 +4,25 @@ app.config(function ($routeProvider) {
             templateUrl: "/html/homepage.html",
             controller: "HomepageController",
         })
-
         .when("/login", {
             templateUrl: "/html/login.html",
             controller: "LoginController",
         })
-
         .when("/signup", {
             templateUrl: "/html/signup.html",
             controller: "SignupController",
         })
-
         .when("/product/:productName", {
             templateUrl: "/html/product-detail.html",
             controller: "ProductDetailsController",
         })
-
         .when("/profile", {
             templateUrl: "/html/profile.html",
             controller: "ProfileController",
             resolve: {
                 auth: function ($q, AuthService, $location) {
-                    return AuthService.isAuthenticated().then(function (
-                        isAuthenticated
-                    ) {
-                        if (isAuthenticated) {
+                    return AuthService.isAuthenticated().then(function (user) {
+                        if (user) {
                             return true;
                         } else {
                             $location.path("/login");
@@ -37,5 +31,40 @@ app.config(function ($routeProvider) {
                     });
                 },
             },
+        })
+        .when("/admin", {
+            templateUrl: "/html/admin.html",
+            controller: "AdminController",
+            resolve: {
+                adminAuth: function ($q, AuthService, $location) {
+                    return AuthService.isAuthenticated().then(function (user) {
+                        if (user && user.access === "admin") {
+                            return true;
+                        } else {
+                            $location.path("/login");
+                            return $q.reject("Not Authorized");
+                        }
+                    });
+                },
+            },
+        })
+        .when("/admin/edit-product/:productId", {
+            templateUrl: "/html/edit-product.html",
+            controller: "EditProductController",
+            resolve: {
+                adminAuth: function ($q, AuthService, $location) {
+                    return AuthService.isAuthenticated().then(function (user) {
+                        if (user && user.access === "admin") {
+                            return true;
+                        } else {
+                            $location.path("/login");
+                            return $q.reject("Not Authorized");
+                        }
+                    });
+                },
+            },
+        })
+        .otherwise({
+            redirectTo: "/",
         });
 });

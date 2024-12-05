@@ -20,6 +20,16 @@ Route::post('/login', [LoginAccountController::class, 'loginAccount'])->name('lo
 Route::get('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
 Route::get('/signup', [CreateAccountController::class, 'createAccountView'])->name('createAccountView');
 Route::post('/signup', [CreateAccountController::class, 'createAccount'])->name('createAccount');
+
+
+Route::get('/api/auth-status', function () {
+    $user = Auth::user();
+    return response()->json([
+        'authenticated' => Auth::check(),
+        'user' => $user ? ['email' => $user->email, 'firstName' => $user->firstName, 'access' => $user->access] : null
+    ]);
+});
+
 Route::get('/api/auth/check', function () {
     if (Auth::check()) {
         return response()->json([
@@ -30,6 +40,7 @@ Route::get('/api/auth/check', function () {
         return response()->json(['isAuthenticated' => false]);
     }
 });
+
 
 
 Route::get('/get-csrf-token', function () {
@@ -51,6 +62,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/api/profile/update', [ProfileController::class, 'updateProfile']);
     Route::delete('/api/profile/delete', [ProfileController::class, 'deleteAccount']);
     Route::post('/logout', [LoginAccountController::class, 'logout'])->name('logoutAccount');
+
+
+    Route::put('/api/product/update/{productName}', [ProductsController::class, 'updateProduct']);
+    Route::delete('/api/product/delete/{productName}', [ProductsController::class, 'deleteProduct']);
 
 });
 
