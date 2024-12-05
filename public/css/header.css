@@ -47,6 +47,10 @@ header {
     justify-self: start;
 }
 
+#rightHeader h2 {
+    margin-bottom: 0;
+}
+
 #iconHeader a {
     display: flex;
     gap: 20px;
