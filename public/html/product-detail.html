@@ -20,6 +20,14 @@
         <div class="list-group">
             <div ng-repeat="comment in comments" class="list-group-item">
                 <p><strong>{{ comment.user_name }}:</strong> {{ comment.content }}</p>
+                <div ng-if="editingComment && editingComment.id === comment.id">
+                    <textarea ng-model="editingComment.content" class="form-control" rows="3"></textarea>
+                    <button ng-click="updateComment()" class="btn btn-primary mt-2">Save</button>
+                    <button ng-click="cancelEditing()" class="btn btn-secondary mt-2">Cancel</button>
+                </div>
+                <button
+                    ng-if="isLoggedIn && user.email === comment.user_email && (!editingComment || editingComment.id !== comment.id)"
+                    ng-click="startEditing(comment)" class="btn btn-success">Edit</button>
             </div>
         </div>
     </div>

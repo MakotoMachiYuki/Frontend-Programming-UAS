@@ -7,6 +7,7 @@ app.controller(
         $scope.error = "";
         $scope.isLoggedIn = false;
         $scope.user = {};
+        $scope.editingComment = null;
 
         AuthService.isAuthenticated().then(function (isAuthenticated) {
             $scope.isLoggedIn = isAuthenticated;
@@ -31,7 +32,7 @@ app.controller(
                                 $scope.user.firstName +
                                 " " +
                                 $scope.user.lastName;
-                            $scope.newComment.user_email = $scope.email;
+                            $scope.newComment.user_email = $scope.user.email;
                         } else {
                             console.error(
                                 "Invalid profile data structure:",
@@ -89,6 +90,50 @@ app.controller(
                         alert("There was an error posting your comment.");
                     }
                 );
+        };
+
+        $scope.startEditing = function (comment) {
+            console.log("Editing comment:", comment);
+            console.log($scope.editingComment._id);
+        };
+
+        $scope.cancelEditing = function () {
+            $scope.editingComment = null;
+        };
+
+        $scope.updateComment = function () {
+            if (!$scope.editingComment.content.trim()) {
+                alert("Comment content cannot be empty");
+                return;
+            }
+
+            $http({
+                method: "PUT",
+                url: "/api/comment/" + $scope.editingComment._id,
+                headers: {
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+                data: {
+                    content: $scope.editingComment.content,
+                },
+            }).then(
+                function (response) {
+                    console.log("Update successful:", response.data);
+                    const index = $scope.comments.findIndex(
+                        (c) => c.id === response.data.id
+                    );
+                    if (index !== -1) {
+                        $scope.comments[index] = response.data;
+                    }
+                    $scope.editingComment = null;
+                },
+                function (error) {
+                    console.error("Error updating comment:", error);
+                    alert("There was an error updating your comment.");
+                }
+            );
         };
     }
 );
