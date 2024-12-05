@@ -91,8 +91,9 @@ app.controller(
                 );
         };
 
-        $scope.startEditing = function (comment) {};
-
+        $scope.startEditing = function (comment) {
+            $scope.editingComment = angular.copy(comment);
+        };
         $scope.cancelEditing = function () {
             $scope.editingComment = null;
         };
@@ -132,8 +133,6 @@ app.controller(
         };
 
         $scope.deleteComment = function (commentId) {
-            console.log("Deleting comment ID:", commentId);
-
             if (!confirm("Are you sure you want to delete this comment?")) {
                 return;
             }
@@ -148,7 +147,6 @@ app.controller(
                 },
             }).then(
                 function (response) {
-                    console.log("Comment deleted successfully:", response.data);
                     $scope.comments = $scope.comments.filter(
                         (comment) => comment._id !== commentId
                     );

@@ -26,7 +26,7 @@
                 </div>
                 <button
                     ng-if="isLoggedIn && user.email === comment.user_email && (!editingComment || editingComment.id !== comment.id)"
-                    ng-click="startEditing(comment)"
+                    ng-click="startEditing(comment._id)"
                     class="btn btn-success"
                 >
                     Edit
@@ -79,7 +79,7 @@
                         comment.content }}
                     </p>
                     <div
-                        ng-if="editingComment && editingComment.id === comment.id"
+                        ng-if="editingComment && editingComment._id === comment._id"
                     >
                         <textarea
                             ng-model="editingComment.content"
@@ -100,11 +100,18 @@
                         </button>
                     </div>
                     <button
-                        ng-if="isLoggedIn && user.email === comment.user_email && (!editingComment || editingComment.id !== comment.id)"
+                        ng-if="isLoggedIn && user.email === comment.user_email && (!editingComment || editingComment._id !== comment._id)"
                         ng-click="startEditing(comment)"
                         class="btn btn-success"
                     >
                         Edit
+                    </button>
+                    <button
+                        ng-if="isLoggedIn && user.email === comment.user_email"
+                        ng-click="deleteComment(comment._id)"
+                        class="btn btn-danger float-right ml-2"
+                    >
+                        Delete
                     </button>
                 </div>
             </div>
