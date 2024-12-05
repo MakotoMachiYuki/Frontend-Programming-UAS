@@ -1,45 +1,72 @@
-<div class="main-header-container">
-    <header>
-        <div id="menuToggleDiv">
-            <i
-                class="fa-solid fa-bars"
-                id="menuToggle"
-                ng-click="toggleSidebar()"
-            ></i>
+<header ng-controller="HeaderController">
+    <div id="menuToggleDiv">
+        <i
+            class="fa-solid fa-bars"
+            id="menuToggle"
+            ng-click="toggleSidebar()"
+        ></i>
+    </div>
+    <div id="rightHeader">
+        <div id="iconHeader">
+            <a href="/">
+                <img id="chaldeaLogo" src="images/gg.png" alt="Logo" />
+                <h2>GatGate</h2>
+            </a>
         </div>
-        <div id="rightHeader">
-            <div id="iconHeader">
-                <a href="/">
-                    <img id="chaldeaLogo" src="images/gg.png" alt="Logo" />
-                    <h2>GatGate</h2>
-                </a>
+    </div>
+    <ul id="selectionHeader">
+        <li class="selectionItem">
+            Collections
+            <div class="overlayMenu">
+                <ul>
+                    <a href="../../html/category/audio.html">
+                        <li>Audio</li>
+                    </a>
+                    <a href="../../html/category/watch.html">
+                        <li>Watch</li>
+                    </a>
+                    <a href="../../html/category/bags.html">
+                        <li>Bags</li>
+                    </a>
+                </ul>
             </div>
-        </div>
-        <ul id="selectionHeader">
-            <li class="selectionItem">
-                Collections
-                <div class="overlayMenu">
+        </li>
+        <a href="#" ng-click="toggleSearch()">
+            <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+        </a>
+        <a href="/#!/wishlist">
+            <i class="fa-solid fa-heart" id="wishlistIcon"></i>
+        </a>
+        <a href="/#!/profile">
+            <i class="fa-solid fa-user" id="profileIcon"></i>
+        </a>
+    </ul>
+
+    <div id="sidebarMenu" ng-show="sidebarVisible">
+        <div id="closeSidebar" ng-click="closeSidebar()">&times;</div>
+        <ul>
+            <li class="menuItem" ng-click="toggleDropdown($event)">
+                <div class="caretText">
+                    Collections
+                    <i class="fa-solid fa-caret-down caretIcon"></i>
+                    <i class="fa-solid fa-caret-up caretIcon"></i>
+                </div>
+                <div class="dropDownContent">
                     <ul>
-                        <a href="../../html/category/audio.html"
-                            ><li>Audio</li></a
-                        >
-                        <a href="../../html/category/watch.html"
-                            ><li>Watch</li></a
-                        >
-                        <a href="../../html/category/bags.html"
-                            ><li>Bags</li></a
-                        >
+                        <a href="../../html/category/audio.html">
+                            <li>Audio</li>
+                        </a>
+                        <a href="../../html/category/watch.html">
+                            <li>Watch</li>
+                        </a>
+                        <a href="../../html/category/bags.html">
+                            <li>Bags</li>
+                        </a>
                     </ul>
                 </div>
             </li>
-            <i
-                class="fa-solid fa-magnifying-glass"
-                id="mainSearchGlassLogo"
-                ng-click="toggleSearch()"
-            ></i>
-            <a href="/#!/profile"><i class="fa-solid fa-user"></i></a>
         </ul>
-    </header>
+    </div>
 
     <div id="searchHeader" ng-show="searchVisible">
         <div id="searchDiv">
@@ -55,13 +82,14 @@
         </div>
         <div id="productContainerSearch" ng-show="foundProducts.length > 0">
             <div class="productSearch" ng-repeat="product in foundProducts">
-                <a ng-href="#!/product/{{product.productName}}">
+                <a ng-href="[[product.page]]">
+                    <img ng-src="[[product.img]]" alt="[[product.name]]" />
                     <div class="productInfoSearch">
-                        <h3>{{ product.productName }}</h3>
+                        <h3>[[product.name]]</h3>
                     </div>
                 </a>
             </div>
         </div>
         <div id="noResult" ng-show="noResults()">No Result</div>
     </div>
-</div>
+</header>

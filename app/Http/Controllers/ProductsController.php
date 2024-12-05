@@ -20,7 +20,7 @@ class ProductsController extends Controller
         return response()->json($products);
     }
 
-    public function productDetail($productName)
+    public function productDetailName($productName)
     {
         $product = Products::where('productName', $productName)->first();
 
@@ -29,6 +29,19 @@ class ProductsController extends Controller
         }
 
         return response()->json($product);
+
+    }
+
+    public function productDetailId($productId)
+    {
+        $product = Products::where('_id', $productId)->first();
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        return response()->json($product);
+
     }
 
     public function updateProduct($productName, Request $request)
@@ -61,7 +74,9 @@ class ProductsController extends Controller
         return response()->json(['message' => 'Product deleted successfully!']);
     }
 
-    public function getComments($productName) {
+
+    public function getComments($productName)
+    {
         $comments = Comments::where('product_name', $productName)->get();
         return response()->json($comments);
     }
@@ -75,14 +90,15 @@ class ProductsController extends Controller
         $comment->content = $request->input('content');
         $comment->save();
 
-        return response()->json($comment);  
+        return response()->json($comment);
     }
 
-    public function updateComment(Request $request, $commentId){
+    public function updateComment(Request $request, $commentId)
+    {
         $comment = Comments::find($commentId);
-            if (!$comment) {
-                return response()->json(['error' => 'Comment not found'], 404);
-            }
+        if (!$comment) {
+            return response()->json(['error' => 'Comment not found'], 404);
+        }
 
         \Log::info('Updating comment:', ['commentId' => $commentId, 'content' => $request->input('content')]);
 
@@ -94,18 +110,8 @@ class ProductsController extends Controller
         $comment->save();
 
         return response()->json($comment);
-        }
-
-    public function deleteComment($commentId){
-        $comment = Comments::find($commentId);
-
-        if (!$comment) {
-            return response()->json(['error' => 'Comment not found'], 404);
-        }
-
-        $comment->delete();
-
-        return response()->json(['message' => 'Comment deleted successfully']);
     }
+
+
 
 }

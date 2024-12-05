@@ -34,7 +34,6 @@ app.factory("AuthService", function ($http, $q) {
                         }
                     },
                     function () {
-                        // This block is triggered if there's a 401 or any other error
                         deferred.resolve(false);
                     }
                 );

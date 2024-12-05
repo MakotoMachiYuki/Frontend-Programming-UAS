@@ -21,6 +21,7 @@
     <script src="js/controllers/ProfileController.js" defer></script>
     <script src="js/controllers/LoginController.js" defer></script>
     <script src="js/controllers/SignupController.js" defer></script>
+    <script src="js/controllers/WishlistController.js" defer></script>
     <script src="js/controllers/AdminController.js" defer></script>
     <script src="js/controllers/EditProductController.js" defer></script>
 

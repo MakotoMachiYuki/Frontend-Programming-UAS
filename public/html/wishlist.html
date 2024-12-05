@@ -1,0 +1,48 @@
+<div class="container my-5" ng-controller="WishlistController">
+    <h2 class="mb-4">My Wishlist</h2>
+
+    <div ng-if="!wishlist || wishlist.productsDetails.length === 0">
+        <p>You have no items in your wishlist.</p>
+    </div>
+
+    <div
+        ng-if="wishlist && wishlist.productsDetails.length > 0"
+        class="wishlist mb-5"
+    >
+        <div class="card">
+            <div class="card-header">My Wishlist</div>
+            <div class="card-body">
+                <div
+                    ng-repeat="product in wishlist.productsDetails track by product._id"
+                    class="product-item mb-3"
+                >
+                    <div
+                        class="d-flex justify-content-between align-items-center"
+                    >
+                        <div class="d-flex align-items-start">
+                            <img
+                                ng-src="images/produk/{{product.images.default[0]}}"
+                                alt="{{product.productName}}"
+                                class="product-image mr-3"
+                                style="width: 100px; height: auto"
+                            />
+                            <div>
+                                <h5>{{product.productName}}</h5>
+                                <p>
+                                    Price: IDR {{product.lowestPrice | number}}
+                                    - IDR {{product.highestPrice | number}}
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            class="btn btn-outline-danger btn-sm"
+                            ng-click="removeProduct(wishlist._id, product._id)"
+                        >
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

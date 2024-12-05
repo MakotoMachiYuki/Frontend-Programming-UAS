@@ -16,6 +16,12 @@ app.config(function ($routeProvider) {
             templateUrl: "/html/product-detail.html",
             controller: "ProductDetailsController",
         })
+
+        .when("/wishlist", {
+            templateUrl: "/html/wishlist.html",
+            controller: "WishlistController",
+        })
+
         .when("/profile", {
             templateUrl: "/html/profile.html",
             controller: "ProfileController",
@@ -35,6 +41,24 @@ app.config(function ($routeProvider) {
             },
         })
 
+        .when("/wishlist", {
+            templateUrl: "/html/wishlist.html",
+            controller: "WishlistController",
+            resolve: {
+                auth: function ($q, AuthService, $location) {
+                    return AuthService.isAuthenticated().then(function (
+                        isAuthenticated
+                    ) {
+                        if (isAuthenticated) {
+                            return true;
+                        } else {
+                            $location.path("/login");
+                            return $q.reject("Not Authenticated");
+                        }
+                    });
+                },
+            },
+        })
         .when("/admin", {
             templateUrl: "/html/admin.html",
             controller: "AdminController",
@@ -46,7 +70,7 @@ app.config(function ($routeProvider) {
                         if (isAuthenticated && AuthService.isAdmin()) {
                             return true;
                         } else {
-                            $location.path("/login");
+                            $location.path("/profile");
                             return $q.reject("Not Authorized");
                         }
                     });
@@ -77,8 +101,10 @@ app.config(function ($routeProvider) {
             controller: "EditProductController",
             resolve: {
                 adminAuth: function ($q, AuthService, $location) {
-                    return AuthService.isAuthenticated().then(function (user) {
-                        if (user && user.access === "admin") {
+                    return AuthService.isAuthenticated().then(function (
+                        isAuthenticated
+                    ) {
+                        if (isAuthenticated && AuthService.isAdmin()) {
                             return true;
                         } else {
                             $location.path("/login");

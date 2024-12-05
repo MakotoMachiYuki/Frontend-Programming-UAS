@@ -1,7 +1,6 @@
 app.controller("AdminController", function ($scope, $http, $location) {
     $scope.products = [];
 
-    // Fetch all products
     $http
         .get("/api/products")
         .then(function (response) {
@@ -11,7 +10,6 @@ app.controller("AdminController", function ($scope, $http, $location) {
             console.error("Error fetching products:", error);
         });
 
-    // Navigate to edit product page
     $scope.editProduct = function (productId) {
         $location.path("/admin/edit-product/" + productId);
     };
