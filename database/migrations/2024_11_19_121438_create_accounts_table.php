@@ -11,11 +11,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('user_accounts', function (Blueprint $table) {
-            $table->id()->unique();
+            $table->id();
             $table->string('firstName');
             $table->string('lastName')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('gender')->nullable();
+            $table->string('access');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,15 +37,26 @@ return new class extends Migration {
             $table->integer('last_activity')->index();
         });
 
-        DB::table('user_accounts')->insert(
-            array(
+        $accounts = [
+            [
                 'firstName' => 'Admin',
                 'lastName' => 'GrandMaster',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('Admin123!')
+                'password' => Hash::make('Admin123!'),
+                'access' => 'admin',
+            ],
 
-            )
-        );
+            [
+                'firstName' => 'Makoto',
+                'lastName' => 'Yuki',
+                'email' => 'makoto@gmail.com',
+                'password' => Hash::make('Makoto123!'),
+                'access' => 'user',
+            ],
+
+        ];
+
+        DB::table('user_accounts')->insert($accounts);
 
     }
 

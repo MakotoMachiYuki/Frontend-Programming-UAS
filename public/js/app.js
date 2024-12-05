@@ -12,10 +12,12 @@ app.filter("encodeURIComponent", function () {
 
 app.factory("AuthService", function ($http, $q) {
     var currentUser = null;
+app.factory("AuthService", function ($http, $q) {
+    let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
 
     return {
         isAuthenticated: function () {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
 
             $http.get("/api/auth/check").then(
                 function (response) {
@@ -30,9 +32,37 @@ app.factory("AuthService", function ($http, $q) {
                     deferred.resolve(false);
                 }
             );
+            if (currentUser) {
+                deferred.resolve(true);
+            } else {
+                $http.get("/api/auth/check").then(
+                    function (response) {
+                        if (response.data.isAuthenticated) {
+                            currentUser = response.data.user;
+                            localStorage.setItem(
+                                "currentUser",
+                                JSON.stringify(currentUser)
+                            );
+                            deferred.resolve(true);
+                        } else {
+                            deferred.resolve(false);
+                        }
+                    },
+                    function () {
+                        // This block is triggered if there's a 401 or any other error
+                        deferred.resolve(false);
+                    }
+                );
+            }
 
             return deferred.promise;
         },
+
+        setAuthenticated: function (user) {
+            currentUser = user;
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        },
+
         getUser: function () {
             return currentUser;
         },
@@ -40,7 +70,7 @@ app.factory("AuthService", function ($http, $q) {
 });
 
 app.factory("csrfInterceptor", function ($q) {
-    var csrfToken = document
+    const csrfToken = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
 

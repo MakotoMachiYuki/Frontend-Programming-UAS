@@ -17,24 +17,32 @@ class LoginAccountController extends Controller
 
     public function loginAccount(Request $request)
     {
-        $data = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
+        $messages = [
+            "wrongLogin" => "Incorrect Email or Password!"
         ];
 
-        if (Auth::attempt($data)) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
             Session::put('login', true);
             return response()->json([
                 'success' => true,
-                'redirect' => url('/profile'),
+                'user' => [
+                    'firstName' => $user->firstName,
+                    'lastName' => $user->lastName,
+                    'email' => $user->email,
+                    'access' => $user->access,
+                ]
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Incorrect email or password!',
+                'message' => 'Incorrect email or password!'
             ]);
         }
     }
+
 
 
     public function logout()

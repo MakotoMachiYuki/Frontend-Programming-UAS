@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="css/edit-product.css" />
+<main ng-controller="EditProductController" class="bg-dark text-light">
+    <div class="container mt-5">
+        <div class="card bg-dark border-light">
+            <div class="card-header bg-black text-light">
+                <h2 class="text-center">
+                    Edit Product - {{ product.productName }}
+                </h2>
+            </div>
+            <div class="card-body">
+                <form ng-submit="updateProduct()">
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">
+                            <strong>Product Name</strong>
+                        </label>
+                        <input
+                            type="text"
+                            id="productName"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.productName"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="lowestPrice" class="form-label">
+                            <strong>Lowest Price</strong>
+                        </label>
+                        <input
+                            type="number"
+                            id="lowestPrice"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.lowestPrice"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="highestPrice" class="form-label">
+                            <strong>Highest Price</strong>
+                        </label>
+                        <input
+                            type="number"
+                            id="highestPrice"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.highestPrice"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tokopediaLink" class="form-label">
+                            <strong>Tokopedia Link</strong>
+                        </label>
+                        <input
+                            type="url"
+                            id="tokopediaLink"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.tokopediaLink"
+                            placeholder="https://tokopedia.com/your-product"
+                        />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="shopeeLink" class="form-label">
+                            <strong>Shopee Link</strong>
+                        </label>
+                        <input
+                            type="url"
+                            id="shopeeLink"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.shopeeLink"
+                            placeholder="https://shopee.com/your-product"
+                        />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category" class="form-label">
+                            <strong>Category</strong>
+                        </label>
+                        <select
+                            id="category"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.category"
+                            required
+                        >
+                            <option value="Audio">Audio</option>
+                            <option value="Watch">Watch</option>
+                            <option value="Bag">Bag</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imagesDefault" class="form-label">
+                            <strong>Default Images</strong>
+                        </label>
+                        <textarea
+                            id="imagesDefault"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.images.default"
+                            placeholder="Enter URLs for default images, separated by commas"
+                            rows="3"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imagesBanner" class="form-label">
+                            <strong>Banner Images</strong>
+                        </label>
+                        <textarea
+                            id="imagesBanner"
+                            class="form-control bg-dark text-light border-light"
+                            ng-model="product.images.banners"
+                            placeholder="Enter URLs for banner images, separated by commas"
+                            rows="3"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fa fa-save"></i> Save Changes
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-danger btn-sm"
+                            ng-click="deleteProduct()"
+                        >
+                            <i class="fa fa-trash"></i> Delete Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
