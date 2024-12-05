@@ -55,7 +55,6 @@ class ProductsController extends Controller
                 return response()->json(['error' => 'Comment not found'], 404);
             }
 
-        \Log::info('Updating comment:', ['commentId' => $commentId, 'content' => $request->input('content')]);
 
         $request->validate([
             'content' => 'required|string',
@@ -77,5 +76,5 @@ class ProductsController extends Controller
         $comment->delete();
 
         return response()->json(['message' => 'Comment deleted successfully']);
-    }
+        }
 }

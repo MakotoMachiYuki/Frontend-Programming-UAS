@@ -110,7 +110,7 @@ app.controller(
 
             $http({
                 method: "PUT",
-                url: "/api/comment/" + $scope.editingComment._id,
+                url: "/api/comment/" + $scope.editingComment._id + "/update",
                 headers: {
                     "X-CSRF-TOKEN": document
                         .querySelector('meta[name="csrf-token"]')
@@ -138,13 +138,15 @@ app.controller(
         };
 
         $scope.deleteComment = function (commentId) {
+            console.log("Deleting comment ID:", commentId);
+
             if (!confirm("Are you sure you want to delete this comment?")) {
                 return;
             }
 
             $http({
                 method: "DELETE",
-                url: "/api/comment/" + commentId,
+                url: "/api/comment/" + commentId + "/delete",
                 headers: {
                     "X-CSRF-TOKEN": document
                         .querySelector('meta[name="csrf-token"]')
@@ -152,13 +154,14 @@ app.controller(
                 },
             }).then(
                 function (response) {
-                    console.log("Comment deleted successfully");
+                    console.log("Comment deleted successfully:", response.data);
                     $scope.comments = $scope.comments.filter(
-                        (comment) => comment.id !== commentId
+                        (comment) => comment._id !== commentId
                     );
                 },
                 function (error) {
                     console.error("Error deleting comment:", error);
+                    console.error("Response data:", error.data);
                     alert("There was an error deleting the comment.");
                 }
             );
