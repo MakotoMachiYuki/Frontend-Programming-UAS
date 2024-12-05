@@ -91,8 +91,9 @@ app.controller(
                 );
         };
 
-        $scope.startEditing = function (comment) {};
-
+        $scope.startEditing = function (comment) {
+            $scope.editingComment = angular.copy(comment);
+        };
         $scope.cancelEditing = function () {
             $scope.editingComment = null;
         };
@@ -105,7 +106,7 @@ app.controller(
 
             $http({
                 method: "PUT",
-                url: "/api/comment/" + $scope.editingComment._id,
+                url: "/api/comment/" + $scope.editingComment._id + "/update",
                 headers: {
                     "X-CSRF-TOKEN": document
                         .querySelector('meta[name="csrf-token"]')
@@ -127,6 +128,33 @@ app.controller(
                 function (error) {
                     console.error("Error updating comment:", error);
                     alert("There was an error updating your comment.");
+                }
+            );
+        };
+
+        $scope.deleteComment = function (commentId) {
+            if (!confirm("Are you sure you want to delete this comment?")) {
+                return;
+            }
+
+            $http({
+                method: "DELETE",
+                url: "/api/comment/" + commentId + "/delete",
+                headers: {
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+            }).then(
+                function (response) {
+                    $scope.comments = $scope.comments.filter(
+                        (comment) => comment._id !== commentId
+                    );
+                },
+                function (error) {
+                    console.error("Error deleting comment:", error);
+                    console.error("Response data:", error.data);
+                    alert("There was an error deleting the comment.");
                 }
             );
         };

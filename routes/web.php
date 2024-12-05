@@ -40,7 +40,8 @@ Route::get('/api/profile', [ProfileController::class, 'getUser'])->name('getUser
 
 Route::get('/api/product/{productName}/comments', [ProductsController::class, 'getComments'])->name('getComments');
 Route::post('/api/product/{productName}/comments', [ProductsController::class, 'addComment'])->name('addComment');
-Route::put('/api/comment/{commentId}', [ProductsController::class, 'updateComment'])->name('updateComment');
+Route::put('/api/comment/{commentId}/update', [ProductsController::class, 'updateComment'])->name('updateComment');
+Route::delete('/api/comment/{commentId}/delete', [ProductsController::class, 'deleteComment'])->name('deleteComment');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/profile', [ProfileController::class, 'getProfile']);
