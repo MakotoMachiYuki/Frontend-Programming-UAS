@@ -13,6 +13,7 @@ app.controller(
             $("#productImageCarousel").carousel(index);
         };
 
+        //READ
         AuthService.isAuthenticated().then(function (isAuthenticated) {
             $scope.isLoggedIn = isAuthenticated;
             if (isAuthenticated) {
@@ -49,6 +50,7 @@ app.controller(
             }
         });
 
+        //READ
         $http.get("/api/product/" + $scope.productName).then(
             function (response) {
                 $scope.product = response.data;
@@ -102,6 +104,7 @@ app.controller(
             $scope.editingComment = null;
         };
 
+        //UPDATE
         $scope.updateComment = function () {
             if (!$scope.editingComment.content.trim()) {
                 alert("Comment content cannot be empty");
@@ -137,6 +140,7 @@ app.controller(
             );
         };
 
+        //DELETE
         $scope.deleteComment = function (commentId) {
             if (!confirm("Are you sure you want to delete this comment?")) {
                 return;
@@ -226,17 +230,7 @@ app.controller(
             });
         };
 
-        function addProductToWishlist(productId, userId) {
-            $http.put("/api/wishlist/" + userId + "/" + productId).then(
-                function (response) {
-                    alert("Product added to wishlist successfully!");
-                },
-                function (error) {
-                    alert("Failed to add product to wishlist.");
-                }
-            );
-        }
-
+        //UPDATE
         function addProductToWishlist(productId, userId) {
             $http.put("/api/wishlist/" + userId + "/" + productId).then(
                 function (response) {

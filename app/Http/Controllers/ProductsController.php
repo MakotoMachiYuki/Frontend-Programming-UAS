@@ -8,18 +8,20 @@ use Illuminate\Http\Request;
 
 
 class ProductsController extends Controller
-{
+{   
     public function productsView()
     {
         return view("product-detail");
     }
 
+    //READ
     public function showAllProducts()
     {
         $products = Products::all();
         return response()->json($products);
     }
 
+    //READ
     public function productDetailName($productName)
     {
         $product = Products::where('productName', $productName)->first();
@@ -32,6 +34,7 @@ class ProductsController extends Controller
 
     }
 
+    //READ
     public function productDetailId($productId)
     {
         $product = Products::where('_id', $productId)->first();
@@ -44,6 +47,7 @@ class ProductsController extends Controller
 
     }
 
+    //READ
     public function getProductsByCategory($category)
     {
         $products = Products::where('category', $category)->get();
@@ -55,6 +59,7 @@ class ProductsController extends Controller
         return response()->json($products);
     }
 
+    //UPDATE
     public function updateProduct($productName, Request $request)
     {
         $product = Products::where('productName', $productName)->first();
@@ -71,6 +76,8 @@ class ProductsController extends Controller
 
         return response()->json(['message' => 'Product updated successfully!']);
     }
+
+    //DELETE
     public function deleteProduct($productName)
     {
         $product = Products::where('productName', $productName)->first();
@@ -86,12 +93,14 @@ class ProductsController extends Controller
     }
 
 
+    //READ
     public function getComments($productName)
     {
         $comments = Comments::where('product_name', $productName)->get();
         return response()->json($comments);
     }
 
+    //CREATE
     public function addComment(Request $request, $productName)
     {
         $comment = new Comments();
@@ -104,6 +113,7 @@ class ProductsController extends Controller
         return response()->json($comment);
     }
 
+    //UPDATE
     public function updateComment(Request $request, $commentId)
     {
         $comment = Comments::find($commentId);
@@ -122,7 +132,7 @@ class ProductsController extends Controller
         return response()->json($comment);
     }
 
-
+    //DELETE
     public function deleteComment($commentId)
     {
         $comment = Comments::find($commentId);
