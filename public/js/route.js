@@ -20,6 +20,11 @@ app.config(function ($routeProvider) {
             templateUrl: "/html/wishlist.html",
             controller: "WishlistController",
         })
+
+        .when("/category/:category", {
+            templateUrl: "/html/category.html",
+            controller: "CategoryController",
+        })
         .when("/profile", {
             templateUrl: "/html/profile.html",
             controller: "ProfileController",

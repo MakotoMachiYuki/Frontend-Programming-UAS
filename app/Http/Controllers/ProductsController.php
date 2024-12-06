@@ -44,6 +44,17 @@ class ProductsController extends Controller
 
     }
 
+    public function getProductsByCategory($category)
+    {
+        $products = Products::where('category', $category)->get();
+
+        if ($products->isEmpty()) {
+            return response()->json(['error' => 'No products found for this category'], 404);
+        }
+
+        return response()->json($products);
+    }
+
     public function updateProduct($productName, Request $request)
     {
         $product = Products::where('productName', $productName)->first();

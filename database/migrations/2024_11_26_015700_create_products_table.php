@@ -44,7 +44,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?navsource=&pmin=1000000&search_id=202410090623489111267788601A1B4LL8&srp_component_id=04.06.00.00&srp_page_id=&srp_page_title=&st=&q=airpods%20pro%202',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=airpods%20pro%202'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=airpods%20pro%202',
+                'specs' => 'H2 chip, Active Noise Cancellation (ANC), transparency mode, spatial audio. Supports adaptive EQ, up to 6 hours of battery life (30 hours with the case). The case has a built-in speaker and Find My support, sweat and water-resistant (IPX4).'
             ],
             [
                 'productName' => 'Nothing Ear 2',
@@ -69,7 +70,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=&q=nothing%20ear%202&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=nothing%20ear%202'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=nothing%20ear%202',
+                'specs' => 'Hi-Res Audio certification with LHDC 5.0 codec support, adaptive Active Noise Cancellation (ANC). Up to 6 hours of playback (36 hours with the case), personalized sound profiles with in-app customization. Water and dust-resistant with an IP54 rating, case is IP55-rated.',
             ],
             [
                 'productName' => 'Sony WF-1000xM4',
@@ -98,7 +100,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?q=sony+wf+1000xm4&source=universe&st=product&navsource=home&srp_component_id=02.02.01.03',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=sony%20wf%201000xm4&trackingId=searchhint-1728455762-c0b03f78-8608-11ef-b6db-c6dc3c767800'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=sony%20wf%201000xm4&trackingId=searchhint-1728455762-c0b03f78-8608-11ef-b6db-c6dc3c767800',
+                'specs' => 'Sony V1 processor, industry-leading noise cancellation, high-resolution audio with LDAC support, up to 8 hours of playback with ANC on (24 hours with the case). Feature Speak-to-Chat and Adaptive Sound Control, IPX4 water resistance rating'
             ],
             [
                 'productName' => 'Soundcore Space One',
@@ -135,7 +138,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=product&q=soundcore%20space%20one&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=home,home',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=soundcore%20space%20one&trackingId=searchhint-1728455777-c9f59eff-8608-11ef-a795-1af7cd02cb46'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=soundcore%20space%20one&trackingId=searchhint-1728455777-c9f59eff-8608-11ef-a795-1af7cd02cb46',
+                'specs' => 'Adaptive ANC and 40mm drivers with custom-tuned drivers for rich audio. Up to 55 hours of playback with ANC off (40 hours with ANC on) and fast charging. With Bluetooth multipoint connectivity and an IPX4 water resistance rating'
             ],
             [
                 'productName' => 'CMF Watch Pro 2',
@@ -163,14 +167,15 @@ return new class extends Migration {
                     ],
                     'banners' => [
                         'nothingwatchbanner1.png',
-                        'nothingwatchdet2.png',
-                        'nothingwatchdet3.png',
-                        'nothingwatchdet4.png',
-                        'nothingwatchdet5.png'
+                        'nothingwatchbanner2.png',
+                        'nothingwatchbanner3.png',
+                        'nothingwatchbanner4.png',
+                        'nothingwatchbanner5.png'
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=product&q=cmf%20watch%20pro%202&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=home,home',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=cmf%20watch%20pro%202'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=cmf%20watch%20pro%202',
+                'specs' => '1.96-inch AMOLED display with 410x502 resolution, 50Hz refresh rate, and IP68 water resistance. It includes built-in GPS, SpO2 sensor, heart rate monitor, and offers up to 13 days of battery life.',
             ],
             [
                 'productName' => 'Samsung Galaxy Watch 7',
@@ -201,7 +206,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=product&q=galaxy%20watch%207&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=home,home',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=galaxy%20watch%207'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=galaxy%20watch%207',
+                'specs' => '1.5-inch Super AMOLED display, Exynos W930 chipset, 2GB RAM, 16GB storage, and runs on WearOS. It supports ECG, blood pressure monitoring, and has up to 50 hours of battery life with 5ATM + IP68 water resistance.'
             ],
             [
                 'productName' => 'Apple Watch Series 9',
@@ -250,7 +256,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=product&q=apple%20watch%209&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=home,home',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=apple%20watch%20series%209'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=apple%20watch%20series%209',
+                'specs' => 'S9 SiP chip, it has a 1.9-inch Retina LTPO OLED display with 1000 nits brightness. It includes advanced sensors like blood oxygen, ECG, and a new double-tap gesture, offering up to 18 hours of battery life.'
             ],
             [
                 'productName' => 'Huawei Watch Ultimate',
@@ -275,7 +282,9 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=product&q=huawei%20watch%20ultimate&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=home,home',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=huawei%20watch%20ultimate'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=huawei%20watch%20ultimate',
+                'specs' => 'Huawei Watch Ultimate
+1.5-inch LTPO AMOLED display with 466x466 resolution, water resistance up to 100m, and dual-band GPS. It offers robust health tracking with ECG and SpO2 sensors, plus up to 14 days of battery life.'
             ],
             [
                 'productName' => 'Elements Backpack Pro',
@@ -320,7 +329,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=product&q=alpaka%20elements%20backpack%20pro&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=alpaka%20elements%20backpack%20pro%5C'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=alpaka%20elements%20backpack%20pro%5C',
+                'specs' => 'Made from weatherproof fabric with YKK AquaGuard zippers, it has a 30L capacity, 16 inch laptop compartment, padded back, and ergonomic straps.'
             ],
             [
                 'productName' => 'Able Carry Max Backpack',
@@ -363,7 +373,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=product&q=able%20carry%20max&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=able%20carry%20max'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=able%20carry%20max',
+                'specs' => 'Constructed from Cordura nylon with YKK zippers, this 30L backpack features a 17 inch laptop sleeve, water resistance, airflow back panel, and organized internal compartments.'
             ],
             [
                 'productName' => 'AER Day Sling 3',
@@ -400,7 +411,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?q=aer+day+sling+3&source=universe&st=product&navsource=home&srp_component_id=02.02.01.05',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=aer%20day%20sling%203'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=aer%20day%20sling%203',
+                'specs' => 'Built from 1680D Cordura ballistic nylon with YKK zippers, this 3L sling bag has an 11 inch tablet compartment, internal organization pockets, and an adjustable strap.'
             ],
             [
                 'productName' => 'Orbit Key Nest',
@@ -433,7 +445,8 @@ return new class extends Migration {
                     ],
                 ],
                 'tokopediaLink' => 'https://www.tokopedia.com/search?st=&q=orbitkey%20nest&srp_component_id=02.01.00.00&srp_page_id=&srp_page_title=&navsource=',
-                'shopeeLink' => 'https://shopee.co.id/search?keyword=orbitkey%20nest'
+                'shopeeLink' => 'https://shopee.co.id/search?keyword=orbitkey%20nest',
+                'specs' => 'A polycarbonate portable organizer with customizable compartments, elastic bands, and a 10W wireless charging pad.'
             ]
         ];
 
