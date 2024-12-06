@@ -1,4 +1,4 @@
-<footer>
+<footer ng-app="subscribeApp" ng-controller="SubscribeController">
     <div id="footerContainer">
         <div id="footer">
             <div class="footerSection about">
@@ -31,11 +31,10 @@
             <div class="footerSection newsletter">
                 <h3>Newsletter</h3>
                 <p>
-                    Be the first to know about product launches and exclusive
-                    deals!
+                    Be the first to know about product launches and exclusive deals!
                 </p>
-                <form action="#">
-                    <input type="email" placeholder="E-mail" />
+                <form ng-submit="subscribe()">
+                    <input type="email" ng-model="email" placeholder="E-mail" required />
                     <button type="submit">SUBSCRIBE</button>
                 </form>
             </div>
