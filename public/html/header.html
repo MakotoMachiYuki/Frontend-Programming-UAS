@@ -6,6 +6,7 @@
             ng-click="toggleSidebar()"
         ></i>
     </div>
+
     <div id="rightHeader">
         <div id="iconHeader">
             <a href="/">
@@ -14,20 +15,15 @@
             </a>
         </div>
     </div>
+
     <ul id="selectionHeader">
         <li class="selectionItem">
             Collections
             <div class="overlayMenu">
                 <ul>
-                    <a href="../../html/category/audio.html">
-                        <li>Audio</li>
-                    </a>
-                    <a href="../../html/category/watch.html">
-                        <li>Watch</li>
-                    </a>
-                    <a href="../../html/category/bags.html">
-                        <li>Bags</li>
-                    </a>
+                    <a href="../../html/category/audio.html"><li>Audio</li></a>
+                    <a href="../../html/category/watch.html"><li>Watch</li></a>
+                    <a href="../../html/category/bags.html"><li>Bags</li></a>
                 </ul>
             </div>
         </li>
@@ -42,10 +38,15 @@
         </a>
     </ul>
 
+    <!-- Sidebar Menu -->
     <div id="sidebarMenu" ng-show="sidebarVisible">
         <div id="closeSidebar" ng-click="closeSidebar()">&times;</div>
         <ul>
-            <li class="menuItem" ng-click="toggleDropdown($event)">
+            <li class="menuItem">
+                <ul>
+                    <a href="#!/profile"><li>Profile</li></a>
+                    <a href="#!/wishlist"><li>Wishlist</li></a>
+                </ul>
                 <div class="caretText">
                     Collections
                     <i class="fa-solid fa-caret-down caretIcon"></i>
@@ -53,43 +54,18 @@
                 </div>
                 <div class="dropDownContent">
                     <ul>
-                        <a href="../../html/category/audio.html">
-                            <li>Audio</li>
-                        </a>
-                        <a href="../../html/category/watch.html">
-                            <li>Watch</li>
-                        </a>
-                        <a href="../../html/category/bags.html">
-                            <li>Bags</li>
-                        </a>
+                        <a href="../../html/category/audio.html"
+                            ><li>Audio</li></a
+                        >
+                        <a href="../../html/category/watch.html"
+                            ><li>Watch</li></a
+                        >
+                        <a href="../../html/category/bags.html"
+                            ><li>Bags</li></a
+                        >
                     </ul>
                 </div>
             </li>
         </ul>
-    </div>
-
-    <div id="searchHeader" ng-show="searchVisible">
-        <div id="searchDiv">
-            <i class="fa-solid fa-magnifying-glass" id="searchGlassLogo"></i>
-            <input
-                id="searchInput"
-                type="search"
-                ng-model="searchInput"
-                ng-change="search()"
-                spellcheck="false"
-                placeholder="SEARCH FOR ..."
-            />
-        </div>
-        <div id="productContainerSearch" ng-show="foundProducts.length > 0">
-            <div class="productSearch" ng-repeat="product in foundProducts">
-                <a ng-href="[[product.page]]">
-                    <img ng-src="[[product.img]]" alt="[[product.name]]" />
-                    <div class="productInfoSearch">
-                        <h3>[[product.name]]</h3>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div id="noResult" ng-show="noResults()">No Result</div>
     </div>
 </header>

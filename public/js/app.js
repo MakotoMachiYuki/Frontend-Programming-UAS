@@ -95,6 +95,15 @@ app.directive("header", function () {
     };
 });
 
+app.directive("search", function () {
+    return {
+        restrict: "A",
+        replace: true,
+        templateUrl: "./html/search.html",
+        controller: "HeaderController",
+    };
+});
+
 app.directive("footer", function () {
     return {
         restrict: "A",

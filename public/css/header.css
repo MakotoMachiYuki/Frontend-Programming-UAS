@@ -32,23 +32,12 @@ header {
     color: white;
 }
 
-#header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding-bottom: 0;
-}
-
 #rightHeader {
     margin-bottom: auto;
     margin-top: auto;
     display: flex;
     justify-content: start;
     justify-self: start;
-}
-
-#rightHeader h2 {
-    margin-bottom: 0;
 }
 
 #iconHeader a {
@@ -66,10 +55,6 @@ header {
 
 #iconHeader h3 {
     font-size: 2rem;
-}
-
-#iconHeader a:hover {
-    color: white;
 }
 
 #chaldeaLogo {
@@ -120,57 +105,67 @@ header {
     display: none;
 }
 
+#searchHeader {
+    display: none;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 900;
+    top: 0;
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+/* When AngularJS sets ng-show to true, display should be block */
+[ng-show="searchVisible"]#searchHeader {
+    display: block;
+}
+
+/* Search Container */
 #searchDiv {
     display: flex;
     position: relative;
     height: auto;
-    padding-left: 0;
+    padding: 10px 0;
     align-items: center;
-    transition: opacity 0.1s ease-in-out;
     font-size: 1.75rem;
 }
 
 #searchInput {
     padding-left: 10px;
     outline: none;
-    border-color: transparent;
+    border: none;
     color: white;
     height: auto;
-    width: 90vw;
+    width: 90%;
     font-size: 1.75rem;
-    background-color: transparent;
+    background-color: black;
+    border-bottom: 1px solid white;
 }
 
-#mainSearchGlassLogo:hover {
-    cursor: pointer;
-}
-
+/* Product Search Container */
 #productContainerSearch {
-    display: none;
-    position: sticky;
-    top: 0;
-    z-index: 10000;
+    display: flex;
+    position: relative;
+    z-index: 800; /* Set below searchDiv */
     justify-content: center;
     align-items: center;
-    margin-top: 19.5px;
-    width: 100vw;
+    margin-top: 20px;
+    width: 100%;
     padding: 20px;
-    position: relative;
     background-color: black;
     flex-wrap: wrap;
     gap: 20px;
 }
 
 .productSearch {
-    top: 0;
-    position: sticky;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: black;
     padding: 10px;
-    border: 1px solidwhite;
+    border: 1px solid white;
     width: 200px;
     transition: background-color 0.3s;
 }
@@ -184,14 +179,21 @@ header {
     color: black;
 }
 
+.productSearch img {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
 .productInfoSearch {
     text-align: center;
     margin-top: 10px;
 }
 
 #noResult {
-    display: none;
-    position: sticky;
+    display: flex;
+    position: relative;
     top: 0;
     z-index: 1000;
     text-align: center;
@@ -199,81 +201,41 @@ header {
     color: white;
 }
 
+/* Sidebar Menu Styles */
 #menuToggleDiv {
-    display: none;
-}
-#searchHeader {
-    width: 100vw;
-    padding: 20px;
-    background-color: black;
-    color: white;
-    position: relative;
-    z-index: 1000;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-#searchHeader.ng-show {
-    display: flex !important;
-    flex-direction: column;
-    opacity: 1;
-}
-
-#searchHeader.ng-hide {
-    display: none !important;
-    opacity: 0;
+    display: none; /* Hidden by default */
+    cursor: pointer;
 }
 
 #sidebarMenu {
+    display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
-    left: 0;
+    left: -100%;
     width: 80vw;
     height: 100vh;
     background-color: black;
     z-index: 10000;
     padding: 20px;
+    padding-top: 10px;
     color: white;
-    display: none;
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-#sidebarMenu.ng-hide {
-    display: none !important;
-    opacity: 0;
-    transform: translateX(-100%);
+    transition: all 0.3s ease-in-out;
 }
 
 #sidebarMenu.ng-show {
-    display: flex !important;
-    opacity: 1;
-    transform: translateX(0);
+    left: 0; /* Slide-in when visible */
 }
 
-#productContainerSearch {
-    position: sticky;
-    top: 0;
-    z-index: 10000;
-    justify-content: center;
-    align-items: center;
-    margin-top: 19.5px;
-    width: 100vw;
-    padding: 20px;
-    background-color: black;
-    flex-wrap: wrap;
-    gap: 20px;
+#closeSidebar {
+    font-size: 3rem;
+    cursor: pointer;
+    text-align: left;
+    border-bottom: white solid 2px;
 }
 
-#productContainerSearch.ng-hide {
-    display: none !important;
-}
-
-#productContainerSearch.ng-show {
-    display: flex !important;
+#sidebarMenu ul {
+    padding: 20px 0;
 }
 
 .menuItem {
@@ -308,32 +270,34 @@ header {
     display: none;
 }
 
-.dropDownContent.open {
-    display: block;
-}
-
 .dropDownContent ul a {
     display: flex;
     margin-left: 20px;
     margin-bottom: 20px;
 }
 
+/* Responsive for Mobile View */
 @media (max-width: 900px) {
     #menuToggleDiv {
-        display: flex;
+        display: flex; /* Show the toggle only on small screens */
     }
 
     #selectionHeader .selectionItem {
-        display: none;
+        display: none; /* Hide full menu items on mobile */
     }
+
     #selectionHeader {
         display: flex;
         flex-wrap: wrap;
         justify-content: end;
     }
 
-    #sidebarMenuIcon {
-        display: block;
+    #wishlistIcon {
+        display: none;
+    }
+
+    #profileIcon {
+        display: none;
     }
 
     #iconHeader {
@@ -343,7 +307,7 @@ header {
         transform: translate(-50%, -50%);
     }
 
-    #iconHeader h2 {
+    #iconHeader h3 {
         display: none;
     }
 }

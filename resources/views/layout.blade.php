@@ -32,6 +32,7 @@
 
 <body ng-app="gatGateApp">
     <div header></div>
+    <div search></div>
     <div ng-view></div>
     <div footer></div>
 </body>
