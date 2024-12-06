@@ -21,19 +21,18 @@
 
     <div id="sortAndFilterContainer" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 15px;">
         <div id="filterOptions" style="display: flex; align-items: center; gap: 10px;">
-            <label><strong>Filter Options:</strong></label>
-            <select id="filterDropdown" class="form-select" ng-model="selectedCategory" style="width: 15%;">
-                <option value="">All Categories</option>
+            <select id="filterDropdown" class="form-select" ng-model="selectedCategory" style="width: 30%;">
+                <option value="">All</option>
                 <option value="Bag">Bag</option>
                 <option value="Watch">Watch</option>
                 <option value="Audio">Audio</option>
             </select>
-            <input type="number" ng-model="minPrice" placeholder="Min Price" style="width: 10%;" />
-            <input type="number" ng-model="maxPrice" placeholder="Max Price" style="width: 10%;" />
+            <input type="number" ng-model="minPrice" placeholder="Min Price" style="width: 60%;" />
+            <input type="number" ng-model="maxPrice" placeholder="Max Price" style="width: 60%;" />
         </div>
     
         <div id="sortOptions" style="display: flex; justify-content: flex-end;">
-            <select id="sortDropdown" class="form-select" ng-model="sortCriteria" style="width: 25%;">
+            <select id="sortDropdown" class="form-select" ng-model="sortCriteria" style="width: 100%;">
                 <option value="">Sort by</option>
                 <option value="productName">Name (A-Z)</option>
                 <option value="-productName">Name (Z-A)</option>
@@ -43,7 +42,7 @@
         </div>
     </div>
     
-    
+
 
 
     <div id="productTab"><span class="tab active">Products</span></div>
