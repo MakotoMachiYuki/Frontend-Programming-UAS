@@ -19,35 +19,54 @@
         </div>
     </div>
 
-    <div id="sortOptions" class="mb-3" style="display: flex; justify-content: flex-end; padding: 20px 15px 0 0;">
-        <select id="sortDropdown" class="form-select" ng-model="sortCriteria" style="width: 10%;">
-            <option value="">Sort by</option>
-            <option value="productName">Name (A-Z)</option>
-            <option value="-productName">Name (Z-A)</option>
-            <option value="lowestPrice">Price (Low to High)</option>
-            <option value="-lowestPrice">Price (High to Low)</option>
-        </select>
+    <div id="sortAndFilterContainer" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 15px;">
+        <div id="filterOptions" style="display: flex; align-items: center; gap: 10px;">
+            <label><strong>Filter Options:</strong></label>
+            <select id="filterDropdown" class="form-select" ng-model="selectedCategory" style="width: 15%;">
+                <option value="">All Categories</option>
+                <option value="Bag">Bag</option>
+                <option value="Watch">Watch</option>
+                <option value="Audio">Audio</option>
+            </select>
+            <input type="number" ng-model="minPrice" placeholder="Min Price" style="width: 10%;" />
+            <input type="number" ng-model="maxPrice" placeholder="Max Price" style="width: 10%;" />
+        </div>
+    
+        <div id="sortOptions" style="display: flex; justify-content: flex-end;">
+            <select id="sortDropdown" class="form-select" ng-model="sortCriteria" style="width: 25%;">
+                <option value="">Sort by</option>
+                <option value="productName">Name (A-Z)</option>
+                <option value="-productName">Name (Z-A)</option>
+                <option value="lowestPrice">Price (Low to High)</option>
+                <option value="-lowestPrice">Price (High to Low)</option>
+            </select>
+        </div>
     </div>
+    
+    
 
 
     <div id="productTab"><span class="tab active">Products</span></div>
     <div id="productsContainerDiv">
-        <div id="productsContainer" class="products">
-            <a
-                ng-repeat="product in products | orderBy:sortCriteria:sortReverse"
-            ng-href="#!/product/{{product.productName}}"
-            >
-                <div class="product">
-                    <img
-                        ng-src="images/produk/{{product.images.default[0] }}"
-                        alt="{{product.productName }}"
-                    />
-                    <h3>{{product.productName }}</h3>
-                    <p>
-                        {{'IDR ' + product.lowestPrice.toLocaleString() + ' -
-                        IDR ' + product.highestPrice.toLocaleString() }}
-                    </p>
-                </div></a>
+        <div id="productsContainerDiv">
+            <div id="productsContainer" class="products">
+                <a
+                    ng-repeat="product in filteredProducts | orderBy:sortCriteria:sortReverse"
+                    ng-href="#!/product/{{product.productName}}"
+                >
+                    <div class="product">
+                        <img
+                            ng-src="images/produk/{{product.images.default[0] }}"
+                            alt="{{product.productName }}"
+                        />
+                        <h3>{{product.productName }}</h3>
+                        <p>
+                            {{'IDR ' + product.lowestPrice.toLocaleString() + ' - IDR ' + product.highestPrice.toLocaleString() }}
+                        </p>
+                    </div>
+                </a>
+            </div>
         </div>
+        
     </div>
 </div>
