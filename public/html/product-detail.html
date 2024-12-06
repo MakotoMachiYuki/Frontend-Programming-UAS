@@ -1,51 +1,97 @@
+<link rel="stylesheet" href="css/product-detail.css" />
 <div class="container my-5">
     <div class="row">
         <div class="col-md-6">
-            <div id="productImageCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <!-- Product Default Image Carousel -->
+            <div
+                id="productImageCarousel"
+                class="carousel slide"
+                data-bs-ride="carousel"
+                data-bs-interval="3000"
+            >
                 <!-- Carousel Indicators -->
                 <div class="carousel-indicators">
-                    <button type="button" ng-repeat="(index, image) in product.images.default"
-                        data-bs-target="#productImageCarousel" data-bs-slide-to="{{index}}"
-                        ng-class="{ active: $first }" aria-current="{{$first ? 'true' : 'false'}}"
-                        aria-label="Slide {{index + 1}}"></button>
+                    <button
+                        type="button"
+                        ng-repeat="(index, image) in product.images.default"
+                        data-bs-target="#productImageCarousel"
+                        data-bs-slide-to="{{index}}"
+                        ng-class="{ active: $first }"
+                        aria-current="{{$first ? 'true' : 'false'}}"
+                        aria-label="Slide {{index + 1}}"
+                    ></button>
                 </div>
 
                 <!-- Carousel Images -->
                 <div class="carousel-inner">
-                    <div class="carousel-item" ng-class="{ active: $first }"
-                        ng-repeat="image in product.images.default">
-                        <img ng-src="images/produk/{{image}}" class="d-block w-100" alt="{{product.productName}}" style="
+                    <div
+                        class="carousel-item"
+                        ng-class="{ active: $first }"
+                        ng-repeat="image in product.images.default"
+                    >
+                        <img
+                            ng-src="images/produk/{{image}}"
+                            class="d-block w-100"
+                            alt="{{product.productName}}"
+                            style="
                                 width: 100%;
                                 height: 300px; /* Match the carousel height */
                                 object-fit: contain; /* Ensure the image fits */
                                 background-color: #f8f9fa; /* Optional padding color */
-                            " />
+                            "
+                        />
                     </div>
                 </div>
 
                 <!-- Carousel Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#productImageCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" style="filter: invert(1);" aria-hidden="true"></span>
+                <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#productImageCarousel"
+                    data-bs-slide="prev"
+                >
+                    <span
+                        class="carousel-control-prev-icon"
+                        style="filter: invert(1)"
+                        aria-hidden="true"
+                    ></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productImageCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" style="filter: invert(1);" aria-hidden="true"></span>
+                <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#productImageCarousel"
+                    data-bs-slide="next"
+                >
+                    <span
+                        class="carousel-control-next-icon"
+                        style="filter: invert(1)"
+                        aria-hidden="true"
+                    ></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
 
             <!-- Thumbnails -->
             <div class="thumbnail-gallery mt-3">
-                <div class="row" ng-repeat="chunk in product.images.default | limitToRows: 7">
+                <div
+                    class="row"
+                    ng-repeat="chunk in product.images.default | limitToRows: 7"
+                >
                     <div class="col-auto" ng-repeat="image in chunk">
-                        <img ng-src="images/produk/{{image}}" class="img-thumbnail" alt="Thumbnail" style="
-                            cursor: pointer;
-                            width: 80px;
-                            height: 80px;
-                            object-fit: contain;
-                            background-color: #f8f9fa;" ng-click="goToSlide($parent.$index * 7 + $index)" />
+                        <img
+                            ng-src="images/produk/{{image}}"
+                            class="img-thumbnail"
+                            alt="Thumbnail"
+                            style="
+                                cursor: pointer;
+                                width: 80px;
+                                height: 80px;
+                                object-fit: contain;
+                                background-color: #f8f9fa;
+                            "
+                            ng-click="goToSlide($parent.$index * 7 + $index)"
+                        />
                     </div>
                 </div>
             </div>
@@ -54,22 +100,100 @@
         <div class="col-md-6">
             <h1 class="display-6 mb-3">{{product.productName}}</h1>
             <div class="product-meta mb-3">
-                <span class="badge bg-secondary me-2">{{product.category}}</span>
+                <span class="badge bg-secondary me-2"
+                    >{{product.category}}</span
+                >
             </div>
             <h3 class="text-dark">
                 Price Range:
-                <span>IDR {{product.lowestPrice | number}} - IDR {{product.highestPrice | number}}</span>
+                <span
+                    >IDR {{product.lowestPrice | number}} - IDR
+                    {{product.highestPrice | number}}</span
+                >
             </h3>
             <div class="purchase-options d-flex">
-                <a class="btn btn-dark btn-sm me-2" ng-href="{{product.tokopediaLink}}" target="_blank">Tokopedia</a>
-                <a class="btn btn-dark btn-sm me-2" ng-href="{{product.shopeeLink}}" target="_blank">Shopee</a>
-                <button class="btn btn-outline-danger btn-sm" ng-click="addToWishlist(product)">
+                <a
+                    class="btn btn-dark btn-sm me-2"
+                    ng-href="{{product.tokopediaLink}}"
+                    target="_blank"
+                    >Tokopedia</a
+                >
+                <a
+                    class="btn btn-dark btn-sm me-2"
+                    ng-href="{{product.shopeeLink}}"
+                    target="_blank"
+                    >Shopee</a
+                >
+                <button
+                    class="btn btn-outline-danger btn-sm"
+                    ng-click="addToWishlist(product)"
+                >
                     <i class="fas fa-heart"></i>
                 </button>
             </div>
         </div>
 
-         <div ng-if="comments.length > 0" class="mt-4">
+        <!-- Banner Images Section -->
+        <div class="col-md-12 mt-5">
+            <div
+                id="productBannerCarousel"
+                class="carousel slide"
+                data-bs-ride="carousel"
+                data-bs-interval="3000"
+            >
+                <!-- Carousel Images -->
+                <div class="carousel-inner">
+                    <div
+                        class="carousel-item"
+                        ng-class="{ active: $first }"
+                        ng-repeat="banner in product.images.banners"
+                    >
+                        <img
+                            ng-src="images/produk/{{banner}}"
+                            class="d-block w-100"
+                            alt="Product Banner"
+                            style="
+                                width: 100%;
+                                height: 400px; /* Adjust as necessary */
+                                object-fit: contain; /* Ensure the image fits */
+                                background-color: #f8f9fa; /* Optional padding color */
+                            "
+                        />
+                    </div>
+                </div>
+
+                <!-- Carousel Controls -->
+                <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#productBannerCarousel"
+                    data-bs-slide="prev"
+                >
+                    <span
+                        class="carousel-control-prev-icon"
+                        style="filter: invert(1)"
+                        aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#productBannerCarousel"
+                    data-bs-slide="next"
+                >
+                    <span
+                        class="carousel-control-next-icon"
+                        style="filter: invert(1)"
+                        aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div ng-if="comments.length > 0" class="mt-4">
             <h3>Comments</h3>
             <div class="list-group">
                 <div ng-repeat="comment in comments" class="list-group-item">
@@ -120,9 +244,9 @@
             <p>No comments yet. Be the first to comment!</p>
         </div>
 
+        <!-- Add Comment Section -->
         <div ng-if="isLoggedIn" class="mt-4">
             <h4>Add a Comment</h4>
-            <div class="form-group"></div>
             <div class="form-group">
                 <textarea
                     ng-model="newComment.content"
@@ -131,7 +255,7 @@
                     placeholder="Add a comment"
                 ></textarea>
             </div>
-            <button ng-click="addComment()" class="btn btn-success">
+            <button ng-click="addComment()" class="btn btn-success mt-2">
                 Submit Comment
             </button>
         </div>
@@ -141,8 +265,7 @@
         </div>
 
         <div ng-if="error" class="mt-4">
-            <p class="text-center text-danger">{{error }}</p>
+            <p class="text-center text-danger">{{error}}</p>
         </div>
-    </div>
     </div>
 </div>

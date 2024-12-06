@@ -1,0 +1,15 @@
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: grey;
+    filter: brightness(0.7);
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    filter: brightness(1);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
