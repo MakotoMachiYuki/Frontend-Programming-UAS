@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Wishlist;
 
 class WishlistController extends Controller
-{
+{   
+
+    //READ
     public function showUserWishlist($userId)
     {
         $wishlist = Wishlist::where('user_id', $userId)->first();
@@ -25,6 +27,8 @@ class WishlistController extends Controller
         return response()->json($wishlist);
     }
 
+
+    //CREATE
     public function create(Request $request)
     {
         $userId = Auth::id();
@@ -45,6 +49,8 @@ class WishlistController extends Controller
         return response()->json(['message' => 'Failed to create wishlist.'], 500);
     }
 
+
+    //UPDATE
     public function addProduct(Request $request, $userId, $productId)
     {
         $wishlist = Wishlist::where('user_id', $userId)->first();
@@ -71,6 +77,8 @@ class WishlistController extends Controller
     }
 
 
+
+    //DELETE
     public function removeProduct($userId, $productId)
     {
         $wishlist = Wishlist::where('user_id', $userId)->first();
