@@ -9,6 +9,10 @@ app.controller(
         $scope.user = {};
         $scope.editingComment = null;
 
+        $scope.goToSlide = function (index) {
+            $("#productImageCarousel").carousel(index);
+        };
+
         AuthService.isAuthenticated().then(function (isAuthenticated) {
             $scope.isLoggedIn = isAuthenticated;
             if (isAuthenticated) {
