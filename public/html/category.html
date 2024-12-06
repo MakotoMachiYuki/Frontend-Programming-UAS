@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="css/category.css" />
+<main ng-controller="CategoryController">
+    <div id="main">
+        <div class="comparator">
+            <div class="compro" ng-repeat="column in [1, 2]">
+                <select
+                    ng-model="selectedProduct[column]"
+                    ng-change="updateProduct(column)"
+                >
+                    <option value="">Select a product</option>
+                    <option
+                        ng-repeat="product in products"
+                        value="{{product._id}}"
+                    >
+                        {{product.productName}}
+                    </option>
+                </select>
+
+                <div
+                    id="details{{column}}"
+                    class="compro-details"
+                    ng-if="productDetails[column]"
+                >
+                    <img
+                        ng-src="images/produk/{{productDetails[column].images.default[0]}}"
+                        class="com-img"
+                        alt="Product {{column}}"
+                    />
+                    <h3>{{productDetails[column].productName}}</h3>
+                    <div class="specs">
+                        <p>
+                            <strong>{{productDetails[column].specs}}</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header">
+            <h1>{{categoryName}}</h1>
+        </div>
+
+        <div class="sort-container">
+            <select
+                id="sortSelect"
+                ng-model="sortType"
+                ng-change="sortProducts()"
+            >
+                <option value="">Sort by</option>
+                <option value="nameAsc">Name A-Z</option>
+                <option value="nameDesc">Name Z-A</option>
+                <option value="priceLow">Price: Low to High</option>
+                <option value="priceHigh">Price: High to Low</option>
+            </select>
+        </div>
+
+        <div id="productContainer" class="products">
+            <a
+                ng-repeat="product in sortedProducts"
+                href="#!/product/{{product.productName}}"
+            >
+                <div class="product">
+                    <img
+                        ng-src="images/produk/{{product.images.default[0]}}"
+                        alt="{{product.productName}}"
+                    />
+                    <h3 class="productName">{{product.productName}}</h3>
+                    <p class="productPrice">
+                        IDR {{product.lowestPrice | number}} - IDR
+                        {{product.highestPrice | number}}
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+</main>

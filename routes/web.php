@@ -44,6 +44,8 @@ Route::post('/api/product/{productName}/comments', [ProductsController::class, '
 Route::put('/api/comment/{commentId}/update', [ProductsController::class, 'updateComment'])->name('updateComment');
 Route::delete('/api/comment/{commentId}/delete', [ProductsController::class, 'deleteComment'])->name('deleteComment');
 
+Route::get('/api/category/{category}', [ProductsController::class, 'getProductsByCategory']);
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/profile', [ProfileController::class, 'getProfile']);
     Route::put('/api/profile/update', [ProfileController::class, 'updateProfile']);

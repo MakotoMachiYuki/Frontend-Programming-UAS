@@ -25,8 +25,7 @@
     <script src="js/controllers/AdminController.js" defer></script>
     <script src="js/controllers/EditProductController.js" defer></script>
     <script src="js/controllers/SubscribeController.js" defer></script>
-
-
+    <script src="js/controllers/CategoryController.js" defer></script>
 
 </head>
 
