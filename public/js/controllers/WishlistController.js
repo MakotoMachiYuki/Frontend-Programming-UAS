@@ -38,17 +38,14 @@ app.controller("WishlistController", function ($scope, $http) {
                     },
                     function (error) {
                         console.error("Error fetching wishlist:", error);
-                        alert("Failed to fetch wishlist.");
                     }
                 );
             } else {
                 console.error("Invalid profile data structure:", response.data);
-                alert("Failed to retrieve user profile. Please try again.");
             }
         })
         .catch(function (error) {
             console.error("Error fetching profile:", error);
-            alert("Failed to fetch user profile.");
         });
 
     $scope.removeProduct = function (wishlistId, productId) {

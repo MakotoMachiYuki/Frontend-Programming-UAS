@@ -1,0 +1,31 @@
+<div id="searchHeader" ng-show="searchVisible">
+    <div id="searchDiv">
+        <i class="fa-solid fa-magnifying-glass" id="searchGlassLogo"></i>
+        <input
+            id="searchInput"
+            type="search"
+            ng-model="searchQuery"
+            ng-change="searchProducts()"
+            spellcheck="false"
+            placeholder="SEARCH FOR ..."
+        />
+    </div>
+    <div id="productContainerSearch" ng-show="searchResults.length > 0">
+        <div
+            class="productSearch"
+            ng-repeat="product in searchResults"
+            ng-click="goToProduct(product)"
+        >
+            <div class="productInfoSearch">
+                <h3>{{product.productName}}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div
+        id="noResult"
+        ng-show="searchResults.length === 0 && searchQuery.length > 0"
+    >
+        No Result
+    </div>
+</div>

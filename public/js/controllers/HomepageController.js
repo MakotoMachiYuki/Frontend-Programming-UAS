@@ -33,7 +33,7 @@ app.controller("HomepageController", [
             .get("/api/products")
             .then(function (response) {
                 $scope.products = response.data;
-                $scope.filteredProducts = $scope.products; // Initialize filtered products
+                $scope.filteredProducts = $scope.products;
             })
             .catch(function (error) {
                 console.error("Error fetching products:", error);
@@ -44,7 +44,6 @@ app.controller("HomepageController", [
         $scope.minPrice = null;
         $scope.maxPrice = null;
 
-        // Watch for changes in the filter options to apply filters automatically
         $scope.$watchGroup(
             ["selectedCategory", "minPrice", "maxPrice"],
             function () {
@@ -52,15 +51,15 @@ app.controller("HomepageController", [
             }
         );
 
-        // Filter function to filter products based on category and price range
         $scope.filterProducts = function () {
+            if ($scope.products == null) {
+                console.log("No filter yet");
+                return;
+            }
             $scope.filteredProducts = $scope.products.filter((product) => {
-                // Check category
                 const categoryMatch =
                     !$scope.selectedCategory ||
                     product.category === $scope.selectedCategory;
-
-                // Check price range
                 const minPriceMatch =
                     !$scope.minPrice ||
                     product.lowestPrice >= parseFloat($scope.minPrice);
