@@ -125,6 +125,7 @@ app.controller(
                         (c) => c.id === response.data.id
                     );
                     if (index !== -1) {
+                        window.location.hostname;
                         $scope.comments[index] = response.data;
                     }
                     $scope.editingComment = null;
