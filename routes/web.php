@@ -6,6 +6,7 @@ use App\Http\Controllers\Accounts\LoginAccountController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\SubscribeController;
 
 Route::get('/', function () {
     return view('layout');
@@ -58,3 +59,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/api/product/delete/{productName}', [ProductsController::class, 'deleteProduct']);
 
 });
+
+Route::post('api/subscribe', [SubscribeController::class, 'subscribe']);
